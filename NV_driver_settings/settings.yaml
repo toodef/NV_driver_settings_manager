@@ -1,319 +1,443 @@
--
-  name: Ambient Occlusion
-  value: HIGH
-  values: [OFF, LOW, MEDIUM, HIGH]
+# --NVIDIA Graphics Driver setting file.
 
--
-  name: Texture filtering - Negative LOD bias
-  value: OFF
-  values: [OFF, ON]
-
--
-  name: Texture filtering - Trilinear optimization
-  value: OFF
-  values: [OFF, ON]
-
--
-  name: Vertical Sync Tear Control
-  value: DISABLE
-  values: [DISABLE, ENABLE]
-
--
-  name: Preferred refresh rate
-  value: APPLICATION_CONTROLLED
-  values: [APPLICATION_CONTROLLED, HIGHEST_AVAILABLE]
-
--
-  name: VAB Default Data
-  value:
-  values: [ZERO, UINT_ONE, FLOAT_ONE, FLOAT_POS_INF, FLOAT_NAN, USE_API_DEFAULTS]
-
--
-  name: Ambient Occlusion
-  value: OFF
-  values: [OFF, LOW, MEDIUM, HIGHT]
-
--
-  name: Maximum pre-rendered frames
-  value: APP_CONTROLLED
-  values: [MIN, MAX, APP_CONTROLLED]
-
--
-  name: Texture filtering - Anisotropic filter optimization
-  value: OFF
-  values: [OFF, ON]
-
--
-  name: Vertical Sync
-  value: PASSIVE
-  values: [PASSIVE, FORCEOFF, FORCEON, FLIPINTERVAL2, FLIPINTERVAL3, FLIPINTERVAL4]
-
--
-  name: Texture filtering - Quality
-  value: QUALITY
-  values: [HIGHQUALITY, QUALITY, PERFORMANCE, HIGHPERFORMANCE]
-
--
-  name: Dynamic tiling
-  value: OFF
-  values: [OFF, ON]
-
--
-  name: Texture filtering - Anisotropic sample optimization
-  value: OFF
-  values: [OFF, ON]
-
--
-  name: Anisotropic filtering setting
-  value:
-  values: [MASK, NONE_POINT, NONE_LINEAR, MAX]
-
--
-  name: SLI rendering mode
-  value:
-  values: [AUTOSELECT, FORCE_SINGLE, FORCE_AFR, FORCE_AFR2, FORCE_SFR, FORCE_AFR_OF_SFR__FALLBACK_3AFR]
-
--
-  name: Flag to control smooth AFR behavior
-  value:
-  values: [OFF, ON]
-
--
-  name: Vsync - Behavior Flags
-  value:
-  values: [NONE, DEFAULT, IGNORE_FLIPINTERVAL_MULTIPLE]
-
--
-  name: Number of GPUs to use on SLI rendering mode
-  value:
-  values: [AUTOSELECT, ONE, TWO, THEEE, FOUR]
-
--
-  name: NVIDIA predefined number of GPUs to use on SLI rendering mode
-  value:
-  values: [AUTOSELECT, ONE, TWO, THEEE, FOUR]
-
--
-  name: NVIDIA predefined number of GPUs to use on SLI rendering mode on DirectX 10
-  value:
-  values: [AUTOSELECT, ONE, TWO, THEEE, FOUR]
-
--
-  name: NVIDIA predefined SLI mode
-  value:
-  values: [AUTOSELECT, FORCE_SINGLE, FORCE_AFR, FORCE_AFR2, FORCE_SFR, FORCE_AFR_OF_SFR__FALLBACK_3AFR]
-
--
-  name: NVIDIA predefined SLI mode on DirectX 10
-  value:
-  values: [AUTOSELECT, FORCE_SINGLE, FORCE_AFR, FORCE_AFR2, FORCE_SFR, FORCE_AFR_OF_SFR__FALLBACK_3AFR]
-
--
-  name: Application Profile Notification Popup Timeout
-  value:
-  values: [DISABLED, NINE_SECONDS, FIFTEEN_SECONDS, THIRTY_SECONDS, ONE_MINUTE, TWO_MINUTE]
-
--
-  name: Do not display this profile in the Control Panel
-  value:
-  values: [DISABLED, ENABLED]
-
--
-  name: Export Performance Counters
-  value:
-  values: [OFF, ON]
-
--
-  name: NVIDIA Predefined FXAA Usage
-  value:
-  values: [DISALLOWED, ALLOWED]
-
--
-  name: Power management mode
-  value:
-  values: [ADAPTIVE, PREFER_MAX, CONTROLLED, PREFER_MIN, MIN, MAX]
-
--
-  name: Frame Rate Limiter
-  value:
-  values: [DISABLED, FPS_20, FPS_30, FPS_40, FPSMASK, GPS_WEB, FORCE_OPTIMUS_POLICY, DISALLOWED, THRESHOLD, TEMPERATURE, POWER, MODEMASK, ACCURATE, ALLOW_WINDOWED, FORCEON, ENABLED, MASK]
-
--
-  name: iGPU transcoding
-  value:
-  values: [DISABLE, ENABLE]
-
--
-  name: Toggle FXAA on or off
-  value:
-  values: [OFF, ON]
-
--
-  name: Toggle FXAA Indicator on or off
-  value:
-  values: [OFF, ON]
-
--
-  name: Show the SLI on-screen indicator
-  value:
-  values: [DISABLED, ENABLED]
-
--
-  name: Debug bits for optimus
-  value:
-  values: [RENDER_TRANSPORT, DISPLAY_TRANSPORT]
-
--
-  name: Maximum AA samples allowed for a given application
-  value:
-  values: [MIN, MAX]
-
--
-  name: Display the PhysX indicator
-  value:
-  values: [DISABLED, ENABLED]
-
--
-  name: Antialiasing - SLI AA
-  value:
-  values: []
-
--
-  name: Antialiasing - Gamma correction
-  value:
-  values: []
-
--
-  name: Antialiasing - Mode
-  value:
-  values: []
-
--
-  name: Anisotropic filtering mode
-  value:
-  values: [MASK, APP, USER, COUND, MAX]
-
--
-  name: Antialiasing - Transparency Supersampling
-  value:
-  values: []
-
--
-  name: Antialiasing - Setting
-  value:
-  values: []
-
--
-  name: Optimus flags for enabled applications
-  value:
-  values: [INTEGRATED, ENABLE, USER_EDITABLE, MASK, VIDEO_MASK, VARYING_BIT, AUTO_SELECT, OVERRIDE_BIT]
-
--
-  name: Enable application for Optimus
-  value:
-  values: [INTEGRATED, ENABLE, USER_EDITABLE, MASK, VIDEO_MASK, VARYING_BIT, AUTO_SELECT, OVERRIDE_BIT]
-
--
-  name: Shim Rendering Mode Options per application for Optimus
-  value:
-  values: [DEFAULT_RENDERING_MODE, DISABLE_ASYNC_PRESENT, EHSHELL_DETECT, FLASHPLAYER_HOST_DETECT, VIDEO_DRM_APP_DETECT, IGNORE_OVERRIDES, CHILDPROCESS_DETECT, ENABLE_DWM_ASYNC_PRESENT, PARENTPROCESS_DETECT, ALLOW_INHERITANCE, DISABLE_WRAPPERS, DISABLE_DXGI_WRAPPERS, PRUNE_UNSUPPORTED_FORMATS, ENABLE_ALPHA_FORMAT, IGPU_TRANSCODING, DISABLE_CUDA, ALLOW_CP_CAPS_FOR_VIDEO, ENABLE_NEW_HOOKING, DISABLE_DURING_SECURE_BOOT]
-
--
-  name: Stereo - Dongle Support
-  value:
-  values: [OFF, DAC, DLP]
-
--
-  name: Stereo - Enable
-  value:
-  values: [OFF, ON]
-
--
-  name: Stereo - Swap eyes
-  value:
-  values: [OFF, ON]
-
--
-  name: NVIDIA Predefined Ambient Occlusion Usage
-  value:
-  values: [DISABLED, ENABLED]
-
--
-  name: Texture filtering - Driver Controlled LOD Bias
-  value:
-  values: [OFF, ON]
-
--
-  name: Texture filtering - LOD Bias
-  value:
-  values: [MIN, MAX]
-
--
-  name: Stereo - Display mode
-  value:
-  values: [SHUTTER_GLASSES, VERTICAL_INTERLACED, TWINVIEW, NV17_SHUTTER_GLASSES_AUTO, NV17_SHUTTER_GLASSES_DAC0, NV17_SHUTTER_GLASSES_DAC1, COLOR_LINE, COLOR_INTERLEAVED, ANAGLYPH, HORIZONTAL_INTERLACED, SIDE_FIELD, SUB_FIELD, CHECKERBOARD, INVERSE_CHECKERBOARD, TRIDELITY_SL, TRIDELITY_MV, SEEFRONT, STEREO_MIRROR, FRAME_SEQUENTIAL, AUTODETECT_PASSIVE_MODE, AEGIS_DT_FRAME_SEQUENTIAL, OEM_EMITTER_FRAME_SEQUENTIAL, USE_HW_DEFAULT, DEFAULT_GL]
-
--
-  name: Stereo - Win8 support
-  value:
-  values: [OFF, SRS_1714_WIN8_STEREO, WIN8_STEREO_EXPORT_IF_ENABLED]
-
--
-  name: Multi-display/mixed-GPU acceleration
-  value:
-  values: []
-
--
-  name: Buffer-flipping mode
-  value:
-  values: []
-
--
-  name: Force Stereo shuttering
-  value:
-  values: []
-
--
-  name: Enable overlay
-  value:
-  values: []
+# Settings list:
+# --Antialiasing - Line gamma
+# --Deep color for 3D applications
+# --Controls the number of vblank signals from the display to wait before rendering a frame (SwapInterval) on OpenGL. In order to force VSYNC ON or OFF, use VSYNCMODE.
+# --Controls if we evaluate the current scan line for a (un)synced flip with negative intervals. A value in the range of 0 - 100%
+# --Controls if the number of SwapIntervals set is treated as negative or positive values on OpenGL.
+# --Event Log Severity Threshold. This controls which events are logged.
+# --Extension String version
+# --Buffer-flipping mode
+# --Force Stereo shuttering
+# --Multi-display/mixed-GPU acceleration
+# --Exported Overlay pixel types
+# --Enable overlay
+# --High level control of the rendering quality on OpenGL
+# --Unified back/depth buffer
+# --Threaded optimization
+# --Triple buffering
+# --controls video-editing mode for OpenGL
+# --Antialiasing - Behavior Flags
+# --Antialiasing - Transparency Multisampling
+# --Antialiasing - Gamma correction
+# --Antialiasing - Setting
+# --Antialiasing - Transparency Supersampling
+# --Antialiasing - Mode
+# --Antialiasing - SLI AA
+# --Anisotropic filtering setting
+# --Anisotropic filtering mode
+# --Application Profile Notification Popup Timeout
+# --This ID is used to identify which applications are installed
+# --Do not display this profile in the Control Panel
+# --List of Universal GPU ids
+# --Maximum Allowed GPU Power
+# --Export Performance Counters
+# --NVIDIA Predefined FXAA Usage
+# --Toggle FXAA on or off
+# --Toggle FXAA Indicator on or off
+# --Show the SLI on-screen indicator
+# --Debug bits for optimus
+# --Maximum AA samples allowed for a given application
+# --Display the PhysX indicator
+# --Power management mode
+# --Frame Rate Limiter
+# --iGPU transcoding
+# --Maximum resolution allowed for a given application
+# --Optimus flags for enabled applications
+# --Enable application for Optimus
+# --Shim Rendering Mode Options per application for Optimus
+# --Number of GPUs to use on SLI rendering mode
+# --NVIDIA predefined number of GPUs to use on SLI rendering mode
+# --NVIDIA predefined number of GPUs to use on SLI rendering mode on DirectX 10
+# --NVIDIA predefined SLI mode
+# --NVIDIA predefined SLI mode on DirectX 10
+# --SLI rendering mode
+# --Flag to control smooth AFR behavior
+# --Vsync - Behavior Flags
+# --Stereo - Swap eyes
+# --Stereo - Display mode
+# --Stereo - Win8 support /// renamed from "" by AF5
+# --Stereo - Dongle Support
+# --Stereo - Enable
+# --Ambient Occlusion
+# --NVIDIA Predefined Ambient Occlusion Usage
+# --Texture filtering - Driver Controlled LOD Bias
+# --ICafe Settings
+# --Texture filtering - LOD Bias
+# --Maximum pre-rendered frames
+# --Dynamic tiling
+# --Texture filtering - Anisotropic sample optimization
+# --Texture filtering - Anisotropic filter optimization
+# --Texture filtering - Trilinear optimization
+# --Texture filtering - Negative LOD bias
+# --Texture filtering - Quality
+# --Preferred refresh rate
+# --PowerThrottle
+# --VAB Default Data
+# --Vertical Sync
+# --Vertical Sync Tear Control
 
 -
   name: Antialiasing - Line gamma
   value:
-  values: []
-
--
-  name: Maximum frames allowed
-  value:
-  values: []
+  #val_options: [DISABLED, ENABLED, MIN, MAX]
 
 -
   name: Deep color for 3D applications
   value:
-  values: []
+  #val_options: [DISABLE, ENABLE]
+
+-
+  name: Controls the number of vblank signals from the display to wait before rendering a frame (SwapInterval) on OpenGL. In order to force VSYNC ON or OFF, use VSYNCMODE.
+  value:
+  #val_options: [TEAR, VSYNC_ONE, VSYNC, VALUE_MASK, FORCE_MASK, FORCE_OFF, FORCE_ON, APP_CONTROLLED, DISABLE]
+
+-
+  name: Controls if we evaluate the current scan line for a (un)synced flip with negative intervals. A value in the range of 0 - 100%
+  value:
+  #val_options: [ZERO_SCANLINES, ONE_FULL_FRAME_OF_SCANLINES]
+
+-
+  name: Controls if the number of SwapIntervals set is treated as negative or positive values on OpenGL.
+  value:
+  #val_options: [POSITIVE, NEGATIVE]
+
+-
+  name: Event Log Severity Threshold. This controls which events are logged.
+  value:
+  #val_options: [DISABLE, CRITICAL, WARNING, INFORMATION, ALL]
+
+-
+  name: Buffer-flipping mode
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Force Stereo shuttering
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Multi-display/mixed-GPU acceleration
+  value:
+  #val_options: [SINGLE_MONITOR, COMPATIBILITY_LCD, COMPATIBILITY_GCD, PERFORMANCE_LCD, PERFORMANCE_GCD, EXTENDED_SINGLE_MONITOR,
+  #              PERFORMANCE_QUADRO, MULTIMON_BUFFER]
 
 -
   name: Exported Overlay pixel types
   value:
-  values: []
+  #val_options: [NONE, CI, RGBA, CI_AND_RGBA]
+
+-
+  name: Enable overlay
+  value:
+  #val_options: [OFF, ON, FORCE_SW]
+
+-
+  name: High level control of the rendering quality on OpenGL
+  value:
+  #val_options: [HQUAL, QUAL, PERF, HPERF]
 
 -
   name: Unified back/depth buffer
   value:
-  values: []
+  #val_options: [DISABLE, ENABLE, USE_HW_DEFAULT]
 
 -
   name: Threaded optimization
   value:
-  values: []
-
--
-  name: Preferred OpenGL GPU
-  value:
-  values: []
+  #val_options: [ENABLE, DISABLE, DUMP_STATS, IGNORE_GET_ERROR]
 
 -
   name: Triple buffering
   value:
-  values: []
+  #val_options: [DISABLE, ENABLE]
+
+-
+  name: controls video-editing mode for OpenGL
+  value:
+  #val_options: [DISABLE, ENABLE]
+
+-
+  name: Antialiasing - Behavior Flags
+  value:
+  #val_options: [NONE, TREAT_OVERRIDE_AS_APP_CONTROLLED, TREAT_OVERRIDE_AS_ENHANCE, DISABLE_OVERRIDE, TREAT_ENHANCE_AS_APP_CONTROLLED,
+  #              TREAT_ENHANCE_AS_OVERRIDE, DISABLE_ENHANCE, MAP_VCAA_TO_MULTISAMPLING, SLI_DISABLE_TRANSPARENCY_SUPERSAMPLING,
+  #              DISABLE_CPLAA, SKIP_RT_DIM_CHECK_FOR_ENHANCE, DISABLE_SLIAA, DEFAULT, AA_RT_BPP_DIV_4, AA_RT_BPP_DIV_4_SHIFT,
+  #              NON_AA_RT_BPP_DIV_4, NON_AA_RT_BPP_DIV_4_SHIFT, MASK]
+
+-
+  name: Antialiasing - Transparency Multisampling
+  value:
+  #val_options: [MASK, OFF, ON, MAX]
+
+-
+  name: Antialiasing - Gamma correction
+  value:
+  #val_options: [MASK, OFF, ON_IF_FOS, ON_ALWAYS, MAX, DEFAULT, DEFAULT_TESLA, DEFAULT_FERMI]
+
+-
+  name: Antialiasing - Setting
+  value:
+  #val_options: [NONE, SUPERSAMPLE_2X_H, SUPERSAMPLE_2X_V, SUPERSAMPLE_1_5X1_5, FREE_0x03, FREE_0x04, SUPERSAMPLE_4X,
+  #              SUPERSAMPLE_4X_BIAS, SUPERSAMPLE_4X_GAUSSIAN, FREE_0x08, FREE_0x09, SUPERSAMPLE_9X, SUPERSAMPLE_9X_BIAS,
+  #              SUPERSAMPLE_16X, SUPERSAMPLE_16X_BIAS, MULTISAMPLE_2X_DIAGONAL, MULTISAMPLE_2X_QUINCUNX, MULTISAMPLE_4X,
+  #              FREE_0x11, MULTISAMPLE_4X_GAUSSIAN, MIXEDSAMPLE_4X_SKEWED_4TAP, FREE_0x14, FREE_0x15, MIXEDSAMPLE_6X,
+  #              MIXEDSAMPLE_6X_SKEWED_6TAP, MIXEDSAMPLE_8X, MIXEDSAMPLE_8X_SKEWED_8TAP, MIXEDSAMPLE_16X, MULTISAMPLE_4X_GAMMA,
+  #              MULTISAMPLE_16X, VCAA_32X_8v24, CORRUPTION_CHECK, 6X_CT, MULTISAMPLE_2X_DIAGONAL_GAMMA, SUPERSAMPLE_4X_GAMMA,
+  #              MULTISAMPLE_4X_FOSGAMMA, MULTISAMPLE_2X_DIAGONAL_FOSGAMMA, SUPERSAMPLE_4X_FOSGAMMA, MULTISAMPLE_8X, VCAA_8X_4v4,
+  #              VCAA_16X_4v12, VCAA_16X_8v8, MIXEDSAMPLE_32X, SUPERVCAA_64X_4v12, SUPERVCAA_64X_8v8, MIXEDSAMPLE_64X,
+  #              MIXEDSAMPLE_128X, COUNT, METHOD_MASK, METHOD_MAX]
+
+-
+  name: Antialiasing - Transparency Supersampling
+  value:
+  #val_options: [SAMPLES_MASK, SAMPLES_ONE, SAMPLES_TWO, SAMPLES_FOUR, SAMPLES_EIGHT, SAMPLES_MAX, MODE_MASK, MODE_OFF,
+  #              MODE_ALPHA_TEST, MODE_PIXEL_KILL, MODE_DYN_BRANCH, MODE_OPTIMAL, MODE_ALL, MODE_MAX, TRANSPARENCY,
+  #              DISALLOW_TRAA, TRANSPARENCY_DEFAULT, TRANSPARENCY_DEFAULT_TESLA, TRANSPARENCY_DEFAULT_FERMI]
+
+-
+  name: Antialiasing - Mode
+  value:
+  #val_options: [MASK, APP_CONTROL, OVERRIDE, ENHANCE, MAX]
+
+-
+  name: Antialiasing - SLI AA
+  value:
+  #val_options: [DISABLED, ENABLED]
+
+-
+  name: Anisotropic filtering setting
+  value:
+  #val_options: [MASK, NONE_POINT, NONE_LINEAR, MAX]
+
+-
+  name: Anisotropic filtering mode
+  value:
+  #val_options: [MASK, APP, USER, COUND, MAX]
+
+-
+  name: Application Profile Notification Popup Timeout
+  value:
+  #val_options: [DISABLED, NINE_SECONDS, FIFTEEN_SECONDS, THIRTY_SECONDS, ONE_MINUTE, TWO_MINUTE]
+
+-
+  name: Do not display this profile in the Control Panel
+  value:
+  #val_options: [DISABLED, ENABLED]
+
+-
+  name: Export Performance Counters
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: NVIDIA Predefined FXAA Usage
+  value:
+  #val_options: [DISALLOWED, ALLOWED]
+
+-
+  name: Toggle FXAA on or off
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Toggle FXAA Indicator on or off
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Show the SLI on-screen indicator
+  value:
+  #val_options: [DISABLED, ENABLED]
+
+-
+  name: Debug bits for optimus
+  value:
+  #val_options: [RENDER_TRANSPORT, DISPLAY_TRANSPORT]
+
+-
+  name: Maximum AA samples allowed for a given application
+  value:
+  #val_options: [MIN, MAX]
+
+-
+  name: Display the PhysX indicator
+  value:
+  #val_options: [DISABLED, ENABLED]
+
+-
+  name: Power management mode
+  value:
+  #val_options: [ADAPTIVE, PREFER_MAX, CONTROLLED, PREFER_MIN, MIN, MAX]
+
+-
+  name: Frame Rate Limiter
+  value:
+  #val_options: [DISABLED, FPS_20, FPS_30, FPS_40, FPSMASK, GPS_WEB, FORCE_OPTIMUS_POLICY, DISALLOWED, THRESHOLD, TEMPERATURE, POWER, MODEMASK, ACCURATE, ALLOW_WINDOWED, FORCEON, ENABLED, MASK]
+
+-
+  name: iGPU transcoding
+  value:
+  #val_options: [DISABLE, ENABLE]
+
+-
+  name: Optimus flags for enabled applications
+  value:
+  #val_options: [INTEGRATED, ENABLE, USER_EDITABLE, MASK, VIDEO_MASK, VARYING_BIT, AUTO_SELECT, OVERRIDE_BIT]
+
+-
+  name: Enable application for Optimus
+  value:
+  #val_options: [INTEGRATED, ENABLE, USER_EDITABLE, MASK, VIDEO_MASK, VARYING_BIT, AUTO_SELECT, OVERRIDE_BIT]
+
+-
+  name: Shim Rendering Mode Options per application for Optimus
+  value:
+  #val_options: [DEFAULT_RENDERING_MODE, DISABLE_ASYNC_PRESENT, EHSHELL_DETECT, FLASHPLAYER_HOST_DETECT, VIDEO_DRM_APP_DETECT, IGNORE_OVERRIDES, CHILDPROCESS_DETECT, ENABLE_DWM_ASYNC_PRESENT, PARENTPROCESS_DETECT, ALLOW_INHERITANCE, DISABLE_WRAPPERS, DISABLE_DXGI_WRAPPERS, PRUNE_UNSUPPORTED_FORMATS, ENABLE_ALPHA_FORMAT, IGPU_TRANSCODING, DISABLE_CUDA, ALLOW_CP_CAPS_FOR_VIDEO, ENABLE_NEW_HOOKING, DISABLE_DURING_SECURE_BOOT]
+
+-
+  name: Number of GPUs to use on SLI rendering mode
+  value:
+  #val_options: [AUTOSELECT, ONE, TWO, THEEE, FOUR]
+
+-
+  name: NVIDIA predefined number of GPUs to use on SLI rendering mode
+  value:
+  #val_options: [AUTOSELECT, ONE, TWO, THEEE, FOUR]
+
+-
+  name: NVIDIA predefined number of GPUs to use on SLI rendering mode on DirectX 10
+  value:
+  #val_options: [AUTOSELECT, ONE, TWO, THEEE, FOUR]
+
+-
+  name: NVIDIA predefined SLI mode
+  value:
+  #val_options: [AUTOSELECT, FORCE_SINGLE, FORCE_AFR, FORCE_AFR2, FORCE_SFR, FORCE_AFR_OF_SFR__FALLBACK_3AFR]
+
+-
+  name: NVIDIA predefined SLI mode on DirectX 10
+  value:
+  #val_options: [AUTOSELECT, FORCE_SINGLE, FORCE_AFR, FORCE_AFR2, FORCE_SFR, FORCE_AFR_OF_SFR__FALLBACK_3AFR]
+
+-
+  name: SLI rendering mode
+  value:
+  #val_options: [AUTOSELECT, FORCE_SINGLE, FORCE_AFR, FORCE_AFR2, FORCE_SFR, FORCE_AFR_OF_SFR__FALLBACK_3AFR]
+
+-
+  name: Flag to control smooth AFR behavior
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Vsync - Behavior Flags
+  value:
+  #val_options: [NONE, DEFAULT, IGNORE_FLIPINTERVAL_MULTIPLE]
+
+-
+  name: Stereo - Swap eyes
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Stereo - Display mode
+  value:
+  #val_options: [SHUTTER_GLASSES, VERTICAL_INTERLACED, TWINVIEW, NV17_SHUTTER_GLASSES_AUTO, NV17_SHUTTER_GLASSES_DAC0, NV17_SHUTTER_GLASSES_DAC1, COLOR_LINE, COLOR_INTERLEAVED, ANAGLYPH, HORIZONTAL_INTERLACED, SIDE_FIELD, SUB_FIELD, CHECKERBOARD, INVERSE_CHECKERBOARD, TRIDELITY_SL, TRIDELITY_MV, SEEFRONT, STEREO_MIRROR, FRAME_SEQUENTIAL, AUTODETECT_PASSIVE_MODE, AEGIS_DT_FRAME_SEQUENTIAL, OEM_EMITTER_FRAME_SEQUENTIAL, USE_HW_DEFAULT, DEFAULT_GL]
+
+-
+  name: Stereo - Win8 support
+  value:
+  #val_options: [OFF, SRS_1714_WIN8_STEREO, WIN8_STEREO_EXPORT_IF_ENABLED]
+
+-
+  name: Stereo - Dongle Support
+  value:
+  #val_options: [OFF, DAC, DLP]
+
+-
+  name: Stereo - Enable
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Ambient Occlusion
+  value: HIGH
+  #val_options: [OFF, LOW, MEDIUM, HIGH]
+
+-
+  name: NVIDIA Predefined Ambient Occlusion Usage
+  value:
+  #val_options: [DISABLED, ENABLED]
+
+-
+  name: Texture filtering - Driver Controlled LOD Bias
+  value:
+  #val_options: [OFF, ON]
+
+-
+  name: Texture filtering - LOD Bias
+  value:
+  #val_options: [MIN, MAX]
+
+-
+  name: Maximum pre-rendered frames
+  value: APP_CONTROLLED
+  #val_options: [MIN, MAX, APP_CONTROLLED]
+
+-
+  name: Dynamic tiling
+  value: OFF
+  #val_options: [OFF, ON]
+
+-
+  name: Texture filtering - Anisotropic sample optimization
+  value: OFF
+  #val_options: [OFF, ON]
+
+-
+  name: Texture filtering - Anisotropic filter optimization
+  value: OFF
+  #val_options: [OFF, ON]
+
+-
+  name: Texture filtering - Trilinear optimization
+  value: OFF
+  #val_options: [OFF, ON]
+
+-
+  name: Texture filtering - Negative LOD bias
+  value: OFF
+  #val_options: [OFF, ON]
+
+-
+  name: Texture filtering - Quality
+  value: QUALITY
+  #val_options: [HIGHQUALITY, QUALITY, PERFORMANCE, HIGHPERFORMANCE]
+
+-
+  name: Preferred refresh rate
+  value: APPLICATION_CONTROLLED
+  #val_options: [APPLICATION_CONTROLLED, HIGHEST_AVAILABLE]
+
+-
+  name: PowerThrottle
+  value:
+  #val_options: [OFF, ONs]
+
+-
+  name: VAB Default Data
+  value:
+  #val_options: [ZERO, UINT_ONE, FLOAT_ONE, FLOAT_POS_INF, FLOAT_NAN, USE_API_DEFAULTS]
+
+-
+  name: Vertical Sync
+  value: PASSIVE
+  #val_options: [PASSIVE, FORCEOFF, FORCEON, FLIPINTERVAL2, FLIPINTERVAL3, FLIPINTERVAL4]
+
+-
+  name: Vertical Sync Tear Control
+  value: DISABLE
+  #val_options: [DISABLE, ENABLE]
