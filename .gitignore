@@ -1,13 +1,15 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+*.user
+*.glsl
+*.ncb
+*.bak
+Debug
+Release
+*.sln
+*.pch
+*.suo
+*.orig
+*.REMOTE.*
+*.LOCAL.*
+*.BACKUP.*
+*.BASE.*
+sgsv*
