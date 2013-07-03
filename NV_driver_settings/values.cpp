@@ -82,12 +82,6 @@ unsigned int nv_api::get_value_id_from_str( string const & setting_name, string 
       else if (value_name == "ON")
          return OGL_FORCE_BLIT_ON;
    }
-   else if (setting_name == "Preferred OpenGL GPU")
-   {
-   }
-   else if (setting_name == "Maximum frames allowed")
-   {
-   }
    else if (setting_name == "Multi-display/mixed-GPU acceleration")
    {
       if (value_name == "SINGLE_MONITOR")
