@@ -5,15 +5,19 @@ nv_api::nv_api() :
    , profile_(0)
 {
    if (NvAPI_Initialize() != NVAPI_OK)
-      cout << "NVIDIA Api was not initialized!" << endl;
+      cout << "NVIDIA Api not initialized!" << endl;
 
    if (NvAPI_DRS_CreateSession(&session_) != NVAPI_OK)
-      cout << "Can't create session_!" << endl;
-
-   if (NvAPI_DRS_LoadSettings(session_) != NVAPI_OK)
-      cout << "Can't load system settings!" << endl;
+      cout << "Can't create session!" << endl;
 
    NvAPI_DRS_GetCurrentGlobalProfile(session_, &profile_);
+
+   init_map();
+}
+
+nv_api::~nv_api()
+{
+   NvAPI_DRS_DestroySession(session_);
 }
 
 // temp
@@ -23,7 +27,7 @@ NvAPI_UnicodeString & string_to_NvUS( const string & str )
 
    static NvAPI_UnicodeString us = {0};
 
-   for (size_t i = 0; i < len; ++i)
+   for (size_t i = 0; i < len + 1; ++i)
       us[i] = (NvU16)(str.c_str()[i]);
 
    return us;
@@ -31,56 +35,41 @@ NvAPI_UnicodeString & string_to_NvUS( const string & str )
 
 bool nv_api::change_setting( const Node & setting )
 {
-   display_prof_contents();
-
-   NVDRS_SETTING tmp_setting = {0};
-
-   NvU32 setting_id = 0;
-
    string setting_name_str;
 
    setting["name"] >> setting_name_str;
 
+   NvU32 setting_id = 0;
+
    NvAPI_DRS_GetSettingIdFromName(string_to_NvUS(setting_name_str), &setting_id);
 
-   NvAPI_DRS_GetSetting(session_, profile_, setting_id, &tmp_setting);
-
-   size_t i = 0;
-
-   string value_str, tmp_str;
+   string value_str;
 
    setting["value"] >> value_str;
 
-   i = get_value_id_from_str(setting_name_str, value_str);
+   size_t setting_val = get_value_id_from_setting_id(setting_id, value_str);
 
-   //while (1)
-   //{
-   //   setting["values"][i] >> tmp_str;
-
-   //   if (value_str == tmp_str)
-   //      break;
-
-   //   i++;
-   //}
+   NVDRS_SETTING tmp_setting = {0};
 
    tmp_setting.version         = NVDRS_SETTING_VER;
    tmp_setting.settingId       = setting_id       ;
+   tmp_setting.u32CurrentValue = setting_val      ;
    tmp_setting.settingType     = NVDRS_DWORD_TYPE ;
-   tmp_setting.u32CurrentValue = i                ;
 
    NvAPI_DRS_SetSetting(session_, profile_, &tmp_setting);
-
-   NvAPI_DRS_SaveSettings(session_);
-
-   display_prof_contents();
 
    return 1;
 }
 
 bool nv_api::change_settings( Node const & settings )
 {
+   if (NvAPI_DRS_LoadSettings(session_) != NVAPI_OK)
+      cout << "Can't load system settings!" << endl;
+
    for (YAML::Iterator it = settings.begin(); it != settings.end(); ++it)
       change_setting(*it);
+
+   NvAPI_DRS_SaveSettings(session_);
 
    return 0;
 }
@@ -149,7 +138,7 @@ bool nv_api::display_prof_contents()
          return false;
       }
 
-      for(i = 0; i < numSetRead; i++)
+      for (i = 0; i < numSetRead; i++)
       {
          if (set_array[i].settingLocation != NVDRS_CURRENT_PROFILE_LOCATION)
          {
