@@ -26,18 +26,23 @@ public:
 private:
    void init_map();
 
-   unsigned int get_value_id_from_setting_id( NvU32 id, std::string const & value_name );
+   typedef map<NvU32, bimap<string, unsigned int>> dword_map_t ;
+   typedef map<NvU32, list<string>>                string_map_t;
+
+   void print_optional_values( const dword_map_t::iterator & it, std::ostream & o_stream );
+   void print_optional_id    ( const dword_map_t::iterator & it, std::ostream & o_stream );
+
+   unsigned int nv_api::get_value_id_from_value_name( NvU32 setting_id, string const & value_name );
+   string nv_api::get_value_name_from_value_id      ( NvU32 setting_id, unsigned int value_id )    ;
 
    NvDRSSessionHandle session_  ;
    NvDRSProfileHandle profile_  ;
    NVDRS_PROFILE      prof_info_;
 
-
-   typedef map<NvU32, bimap<string, unsigned int>> dword_map_t;
-   typedef map<NvU32, list<string>>                string_map_t ;
-
    dword_map_t     dwrd_setting_map_;
    string_map_t    str_setting_map_ ;
+
+   typedef bimap<string, unsigned int>::relation rel_t;
 
    typedef vector<NVDRS_SETTING> settings_t;
 };
