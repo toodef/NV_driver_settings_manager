@@ -79,7 +79,7 @@
 
 -
   name: Antialiasing - Line gamma
-  value:
+  value: MIN
   #val_options: [DISABLED, ENABLED, MIN, MAX]
 
 -
@@ -150,7 +150,7 @@
 
 -
   name: Triple buffering
-  value:
+  value: ENABLE
   #val_options: [DISABLE, ENABLE]
 
 -

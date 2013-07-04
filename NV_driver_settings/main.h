@@ -1,5 +1,8 @@
 #pragma once
 
+#pragma warning(disable : 4996)
+#pragma warning(disable : 4146)
+
 #include <iostream>
 #include <fstream>
 
@@ -8,9 +11,6 @@
 #pragma comment(lib, "nvapi.lib")
 
 #include <boost/format.hpp>
-
-#pragma warning(disable : 4996)
-#pragma warning(disable : 4146)
 
 #include <yaml.h>
 #pragma comment(lib, "yaml.lib")

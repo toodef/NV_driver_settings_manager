@@ -13,5 +13,5 @@ int main()
 
    nv.change_settings(doc);
 
-   return 0; //setting_change();
+   return 0;
 }

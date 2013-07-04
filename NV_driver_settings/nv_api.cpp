@@ -10,6 +10,9 @@ nv_api::nv_api() :
    if (NvAPI_DRS_CreateSession(&session_) != NVAPI_OK)
       cout << "Can't create session!" << endl;
 
+   if (NvAPI_DRS_LoadSettings(session_) != NVAPI_OK)
+      cout << "Can't load system settings!" << endl;
+
    NvAPI_DRS_GetCurrentGlobalProfile(session_, &profile_);
 
    init_map();
@@ -63,9 +66,6 @@ bool nv_api::change_setting( const Node & setting )
 
 bool nv_api::change_settings( Node const & settings )
 {
-   if (NvAPI_DRS_LoadSettings(session_) != NVAPI_OK)
-      cout << "Can't load system settings!" << endl;
-
    for (YAML::Iterator it = settings.begin(); it != settings.end(); ++it)
       change_setting(*it);
 
