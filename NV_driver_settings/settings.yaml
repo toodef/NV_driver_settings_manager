@@ -43,7 +43,6 @@
 # --Power management mode
 # --Frame Rate Limiter
 # --iGPU transcoding
-# --Maximum resolution allowed for a given application
 # --Optimus flags for enabled applications
 # --Enable application for Optimus
 # --Shim Rendering Mode Options per application for Optimus
