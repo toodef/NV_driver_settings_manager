@@ -11,25 +11,26 @@ unsigned int nv_api::get_value_id_from_setting_id( NvU32 id, string const & valu
    if (it == dwrd_setting_map_.end())
       return 0;
 
-   return it->second.find(value_name)->second;
+   return it->second.left.at(value_name);
 }
 
 void nv_api::init_map()
 {
+   typedef bimap<string, unsigned int>::relation rel_t;
    //"Antialiasing - Line gamma"
-   dwrd_setting_map_[OGL_AA_LINE_GAMMA_ID] = map_list_of("DISABLED", OGL_AA_LINE_GAMMA_DISABLED)
+   dwrd_setting_map_[OGL_AA_LINE_GAMMA_ID] = list_of<rel_t>("DISABLED", OGL_AA_LINE_GAMMA_DISABLED)
                                                         ("ENABLED" , OGL_AA_LINE_GAMMA_ENABLED )
                                                         ("MIN"     , OGL_AA_LINE_GAMMA_MIN     )
                                                         ("MAX"     , OGL_AA_LINE_GAMMA_MAX     )
                                                         ;
 
    //"Deep color for 3D applications"
-   dwrd_setting_map_[OGL_DEEP_COLOR_SCANOUT_ID] = map_list_of("DISABLE", OGL_DEEP_COLOR_SCANOUT_DISABLE)
+   dwrd_setting_map_[OGL_DEEP_COLOR_SCANOUT_ID] = list_of<rel_t>("DISABLE", OGL_DEEP_COLOR_SCANOUT_DISABLE)
                                                              ("ENABLE" , OGL_DEEP_COLOR_SCANOUT_ENABLE )
                                                              ;
 
    //"Controls the number of vblank signals from the display to wait before rendering a frame (SwapInterval) on OpenGL. In order to force VSYNC ON or OFF, use VSYNCMODE."
-   dwrd_setting_map_[OGL_DEFAULT_SWAP_INTERVAL_ID] = map_list_of("TEAR"          , OGL_DEFAULT_SWAP_INTERVAL_TEAR          )
+   dwrd_setting_map_[OGL_DEFAULT_SWAP_INTERVAL_ID] = list_of<rel_t>("TEAR"          , OGL_DEFAULT_SWAP_INTERVAL_TEAR          )
                                                                 ("VSYNC_ONE"     , OGL_DEFAULT_SWAP_INTERVAL_VSYNC_ONE     )
                                                                 ("VSYNC"         , OGL_DEFAULT_SWAP_INTERVAL_VSYNC         )
                                                                 ("VALUE_MASK"    , OGL_DEFAULT_SWAP_INTERVAL_VALUE_MASK    )
@@ -41,17 +42,17 @@ void nv_api::init_map()
                                                                 ;
 
    //"Controls if we evaluate the current scan line for a (un)synced flip with negative intervals. A value in the range of 0 - 100%"
-   dwrd_setting_map_[OGL_DEFAULT_SWAP_INTERVAL_FRACTIONAL_ID] = map_list_of("ZERO_SCANLINES"             , OGL_DEFAULT_SWAP_INTERVAL_FRACTIONAL_ZERO_SCANLINES             )
+   dwrd_setting_map_[OGL_DEFAULT_SWAP_INTERVAL_FRACTIONAL_ID] = list_of<rel_t>("ZERO_SCANLINES"             , OGL_DEFAULT_SWAP_INTERVAL_FRACTIONAL_ZERO_SCANLINES             )
                                                                            ("ONE_FULL_FRAME_OF_SCANLINES", OGL_DEFAULT_SWAP_INTERVAL_FRACTIONAL_ONE_FULL_FRAME_OF_SCANLINES)
                                                                            ;
 
    //"Controls if the number of SwapIntervals set is treated as negative or positive values on OpenGL."
-   dwrd_setting_map_[OGL_DEFAULT_SWAP_INTERVAL_SIGN_ID] = map_list_of("POSITIVE", OGL_DEFAULT_SWAP_INTERVAL_SIGN_POSITIVE)
+   dwrd_setting_map_[OGL_DEFAULT_SWAP_INTERVAL_SIGN_ID] = list_of<rel_t>("POSITIVE", OGL_DEFAULT_SWAP_INTERVAL_SIGN_POSITIVE)
                                                                      ("NEGATIVE", OGL_DEFAULT_SWAP_INTERVAL_SIGN_NEGATIVE)
                                                                      ;
 
    //"Event Log Severity Threshold. This controls which events are logged."
-   dwrd_setting_map_[OGL_EVENT_LOG_SEVERITY_THRESHOLD_ID] = map_list_of("DISABLE"    , OGL_EVENT_LOG_SEVERITY_THRESHOLD_DISABLE    )
+   dwrd_setting_map_[OGL_EVENT_LOG_SEVERITY_THRESHOLD_ID] = list_of<rel_t>("DISABLE"    , OGL_EVENT_LOG_SEVERITY_THRESHOLD_DISABLE    )
                                                                        ("CRITICAL"   , OGL_EVENT_LOG_SEVERITY_THRESHOLD_CRITICAL   )
                                                                        ("WARNING"    , OGL_EVENT_LOG_SEVERITY_THRESHOLD_WARNING    )
                                                                        ("INFORMATION", OGL_EVENT_LOG_SEVERITY_THRESHOLD_INFORMATION)
@@ -63,19 +64,19 @@ void nv_api::init_map()
                                                              ;
 
    //"Buffer-flipping mode"
-   dwrd_setting_map_[OGL_FORCE_BLIT_ID] = map_list_of("ON" , OGL_FORCE_BLIT_ON )
+   dwrd_setting_map_[OGL_FORCE_BLIT_ID] = list_of<rel_t>("ON" , OGL_FORCE_BLIT_ON )
                                                      ("OFF", OGL_FORCE_BLIT_OFF)
                                                      ;
 
    //"Force Stereo shuttering"
-   dwrd_setting_map_[OGL_FORCE_STEREO_ID] = map_list_of("OFF", OGL_FORCE_STEREO_OFF)
+   dwrd_setting_map_[OGL_FORCE_STEREO_ID] = list_of<rel_t>("OFF", OGL_FORCE_STEREO_OFF)
                                                        ("ON" , OGL_FORCE_STEREO_ON )
                                                        ;
 
 
 
    //"Multi-display/mixed-GPU acceleration"
-   dwrd_setting_map_[OGL_MULTIMON_ID] = map_list_of("SINGLE_MONITOR"         , OGL_MULTIMON_SINGLE_MONITOR         )
+   dwrd_setting_map_[OGL_MULTIMON_ID] = list_of<rel_t>("SINGLE_MONITOR"         , OGL_MULTIMON_SINGLE_MONITOR         )
                                                    ("COMPATIBILITY_LCD"      , OGL_MULTIMON_COMPATIBILITY_LCD      )
                                                    ("COMPATIBILITY_GCD"      , OGL_MULTIMON_COMPATIBILITY_GCD      )
                                                    ("PERFORMANCE_LCD"        , OGL_MULTIMON_PERFORMANCE_LCD        )
@@ -86,51 +87,51 @@ void nv_api::init_map()
                                                    ;
 
    //"Exported Overlay pixel types"
-   dwrd_setting_map_[OGL_OVERLAY_PIXEL_TYPE_ID] = map_list_of("NONE"       , OGL_OVERLAY_PIXEL_TYPE_NONE       )
+   dwrd_setting_map_[OGL_OVERLAY_PIXEL_TYPE_ID] = list_of<rel_t>("NONE"       , OGL_OVERLAY_PIXEL_TYPE_NONE       )
                                                              ("CI"         , OGL_OVERLAY_PIXEL_TYPE_CI         )
                                                              ("RGBA"       , OGL_OVERLAY_PIXEL_TYPE_RGBA       )
                                                              ("CI_AND_RGBA", OGL_OVERLAY_PIXEL_TYPE_CI_AND_RGBA)
                                                              ;
 
    //"Enable overlay"
-   dwrd_setting_map_[OGL_OVERLAY_SUPPORT_ID] = map_list_of("OFF"     , OGL_OVERLAY_SUPPORT_OFF     )
+   dwrd_setting_map_[OGL_OVERLAY_SUPPORT_ID] = list_of<rel_t>("OFF"     , OGL_OVERLAY_SUPPORT_OFF     )
                                                           ("ON"      , OGL_OVERLAY_SUPPORT_ON      )
                                                           ("FORCE_SW", OGL_OVERLAY_SUPPORT_FORCE_SW)
                                                           ;
 
    //"High level control of the rendering quality on OpenGL"
-   dwrd_setting_map_[OGL_QUALITY_ENHANCEMENTS_ID] = map_list_of("HQUAL", OGL_QUALITY_ENHANCEMENTS_HQUAL)
+   dwrd_setting_map_[OGL_QUALITY_ENHANCEMENTS_ID] = list_of<rel_t>("HQUAL", OGL_QUALITY_ENHANCEMENTS_HQUAL)
                                                                ("QUAL" , OGL_QUALITY_ENHANCEMENTS_QUAL )
                                                                ("PERF" , OGL_QUALITY_ENHANCEMENTS_PERF )
                                                                ("HPERF", OGL_QUALITY_ENHANCEMENTS_HPERF)
                                                                ;
 
    //"Unified back/depth buffer"
-   dwrd_setting_map_[OGL_SINGLE_BACKDEPTH_BUFFER_ID] = map_list_of("DISABLE"       , OGL_SINGLE_BACKDEPTH_BUFFER_DISABLE       )
+   dwrd_setting_map_[OGL_SINGLE_BACKDEPTH_BUFFER_ID] = list_of<rel_t>("DISABLE"       , OGL_SINGLE_BACKDEPTH_BUFFER_DISABLE       )
                                                                   ("ENABLE"        , OGL_SINGLE_BACKDEPTH_BUFFER_ENABLE        )
                                                                   ("USE_HW_DEFAULT", OGL_SINGLE_BACKDEPTH_BUFFER_USE_HW_DEFAULT)
                                                                   ;
 
    //"Threaded optimization"
-   dwrd_setting_map_[OGL_THREAD_CONTROL_ID] = map_list_of("ENABLE"          , OGL_THREAD_CONTROL_ENABLE          )
+   dwrd_setting_map_[OGL_THREAD_CONTROL_ID] = list_of<rel_t>("ENABLE"          , OGL_THREAD_CONTROL_ENABLE          )
                                                          ("DISABLE"         , OGL_THREAD_CONTROL_DISABLE         )
                                                          ("DUMP_STATS"      , OGL_THREAD_CONTROL_DUMP_STATS      )
                                                          ("IGNORE_GET_ERROR", OGL_THREAD_CONTROL_IGNORE_GET_ERROR)
                                                          ;
 
    //"Triple buffering"
-   dwrd_setting_map_[OGL_TRIPLE_BUFFER_ID] = map_list_of("DISABLE", OGL_TRIPLE_BUFFER_DISABLED)
+   dwrd_setting_map_[OGL_TRIPLE_BUFFER_ID] = list_of<rel_t>("DISABLE", OGL_TRIPLE_BUFFER_DISABLED)
                                                         ("ENABLE" , OGL_TRIPLE_BUFFER_ENABLED )
                                                         ;
 
 
    //"controls video-editing mode for OpenGL"
-   dwrd_setting_map_[OGL_VIDEO_EDITING_MODE_ID] = map_list_of("DISABLE", OGL_VIDEO_EDITING_MODE_DISABLE)
+   dwrd_setting_map_[OGL_VIDEO_EDITING_MODE_ID] = list_of<rel_t>("DISABLE", OGL_VIDEO_EDITING_MODE_DISABLE)
                                                              ("ENABLE" , OGL_VIDEO_EDITING_MODE_ENABLE )
                                                              ;
 
    //"Antialiasing - Behavior Flags"
-   dwrd_setting_map_[AA_BEHAVIOR_FLAGS_ID] = map_list_of("NONE"                                  , AA_BEHAVIOR_FLAGS_NONE                                  )
+   dwrd_setting_map_[AA_BEHAVIOR_FLAGS_ID] = list_of<rel_t>("NONE"                                  , AA_BEHAVIOR_FLAGS_NONE                                  )
                                                         ("TREAT_OVERRIDE_AS_APP_CONTROLLED"      , AA_BEHAVIOR_FLAGS_TREAT_OVERRIDE_AS_APP_CONTROLLED      )
                                                         ("TREAT_OVERRIDE_AS_ENHANCE"             , AA_BEHAVIOR_FLAGS_TREAT_OVERRIDE_AS_ENHANCE             )
                                                         ("DISABLE_OVERRIDE"                      , AA_BEHAVIOR_FLAGS_DISABLE_OVERRIDE                      )
@@ -151,14 +152,14 @@ void nv_api::init_map()
                                                         ;
 
    //"Antialiasing - Transparency Multisampling"
-   dwrd_setting_map_[AA_MODE_ALPHATOCOVERAGE_ID] = map_list_of("MASK", AA_MODE_ALPHATOCOVERAGE_MODE_MASK)
+   dwrd_setting_map_[AA_MODE_ALPHATOCOVERAGE_ID] = list_of<rel_t>("MASK", AA_MODE_ALPHATOCOVERAGE_MODE_MASK)
                                                               ("OFF" , AA_MODE_ALPHATOCOVERAGE_MODE_OFF )
                                                               ("ON"  , AA_MODE_ALPHATOCOVERAGE_MODE_ON  )
                                                               ("MAX" , AA_MODE_ALPHATOCOVERAGE_MODE_MAX )
                                                               ;
 
    //"Antialiasing - Gamma correction"
-   dwrd_setting_map_[AA_MODE_GAMMACORRECTION_ID] = map_list_of("MASK"         , AA_MODE_GAMMACORRECTION_MASK         )
+   dwrd_setting_map_[AA_MODE_GAMMACORRECTION_ID] = list_of<rel_t>("MASK"         , AA_MODE_GAMMACORRECTION_MASK         )
                                                               ("OFF"          , AA_MODE_GAMMACORRECTION_OFF          )
                                                               ("ON_IF_FOS"    , AA_MODE_GAMMACORRECTION_ON_IF_FOS    )
                                                               ("ON_ALWAYS"    , AA_MODE_GAMMACORRECTION_ON_ALWAYS    )
@@ -169,7 +170,7 @@ void nv_api::init_map()
                                                               ;
 
    //"Antialiasing - Setting"
-   dwrd_setting_map_[AA_MODE_METHOD_ID] = map_list_of("NONE"                            , AA_MODE_METHOD_NONE                            )
+   dwrd_setting_map_[AA_MODE_METHOD_ID] = list_of<rel_t>("NONE"                            , AA_MODE_METHOD_NONE                            )
                                                      ("SUPERSAMPLE_2X_H"                , AA_MODE_METHOD_SUPERSAMPLE_2X_H                )
                                                      ("SUPERSAMPLE_2X_V"                , AA_MODE_METHOD_SUPERSAMPLE_2X_V                )
                                                      ("SUPERSAMPLE_1_5X1_5"             , AA_MODE_METHOD_SUPERSAMPLE_1_5X1_5             )
@@ -222,7 +223,7 @@ void nv_api::init_map()
                                                      ;
 
    //"Antialiasing - Transparency Supersampling"
-   dwrd_setting_map_[AA_MODE_REPLAY_ID] = map_list_of("SAMPLES_MASK"              , AA_MODE_REPLAY_SAMPLES_MASK              )
+   dwrd_setting_map_[AA_MODE_REPLAY_ID] = list_of<rel_t>("SAMPLES_MASK"              , AA_MODE_REPLAY_SAMPLES_MASK              )
                                                      ("SAMPLES_ONE"               , AA_MODE_REPLAY_SAMPLES_ONE               )
                                                      ("SAMPLES_TWO"               , AA_MODE_REPLAY_SAMPLES_TWO               )
                                                      ("SAMPLES_FOUR"              , AA_MODE_REPLAY_SAMPLES_FOUR              )
@@ -244,7 +245,7 @@ void nv_api::init_map()
                                                      ;
 
    //"Antialiasing - Mode"
-   dwrd_setting_map_[AA_MODE_SELECTOR_ID] = map_list_of("MASK"       , AA_MODE_SELECTOR_MASK       )
+   dwrd_setting_map_[AA_MODE_SELECTOR_ID] = list_of<rel_t>("MASK"       , AA_MODE_SELECTOR_MASK       )
                                                        ("APP_CONTROL", AA_MODE_SELECTOR_APP_CONTROL)
                                                        ("OVERRIDE"   , AA_MODE_SELECTOR_OVERRIDE   )
                                                        ("ENHANCE"    , AA_MODE_SELECTOR_ENHANCE    )
@@ -252,19 +253,19 @@ void nv_api::init_map()
                                                        ;
 
    //"Antialiasing - SLI AA"
-   dwrd_setting_map_[AA_MODE_SELECTOR_SLIAA_ID] = map_list_of("DISABLED", AA_MODE_SELECTOR_SLIAA_DISABLED)
+   dwrd_setting_map_[AA_MODE_SELECTOR_SLIAA_ID] = list_of<rel_t>("DISABLED", AA_MODE_SELECTOR_SLIAA_DISABLED)
                                                              ("ENABLED" , AA_MODE_SELECTOR_SLIAA_ENABLED )
                                                              ;
 
    //"Anisotropic filtering setting"
-   dwrd_setting_map_[ANISO_MODE_LEVEL_ID] = map_list_of("MASK"       , ANISO_MODE_LEVEL_MASK       )
+   dwrd_setting_map_[ANISO_MODE_LEVEL_ID] = list_of<rel_t>("MASK"       , ANISO_MODE_LEVEL_MASK       )
                                                        ("NONE_POINT" , ANISO_MODE_LEVEL_NONE_POINT )
                                                        ("NONE_LINEAR", ANISO_MODE_LEVEL_NONE_LINEAR)
                                                        ("MAX"        , ANISO_MODE_LEVEL_MAX        )
                                                        ;
 
    //"Anisotropic filtering mode"
-   dwrd_setting_map_[ANISO_MODE_SELECTOR_ID] = map_list_of("MASK", ANISO_MODE_SELECTOR_MASK)
+   dwrd_setting_map_[ANISO_MODE_SELECTOR_ID] = list_of<rel_t>("MASK", ANISO_MODE_SELECTOR_MASK)
                                                           ("APP" , ANISO_MODE_SELECTOR_APP )
                                                           ("USER", ANISO_MODE_SELECTOR_USER)
                                                           ("COND", ANISO_MODE_SELECTOR_COND)
@@ -272,7 +273,7 @@ void nv_api::init_map()
                                                           ;
 
    //"Application Profile Notification Popup Timeout"
-   dwrd_setting_map_[APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_ID] = map_list_of("DISABLED"       , APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_DISABLED       )
+   dwrd_setting_map_[APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_ID] = list_of<rel_t>("DISABLED"       , APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_DISABLED       )
                                                                                ("NINE_SECONDS"   , APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_NINE_SECONDS   )
                                                                                ("FIFTEEN_SECONDS", APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_FIFTEEN_SECONDS)
                                                                                ("THIRTY_SECONDS" , APPLICATION_PROFILE_NOTIFICATION_TIMEOUT_THIRTY_SECONDS )
@@ -281,7 +282,7 @@ void nv_api::init_map()
                                                                                ;
 
    //"Do not display this profile in the Control Panel"
-   dwrd_setting_map_[CPL_HIDDEN_PROFILE_ID] = map_list_of("DISABLED", CPL_HIDDEN_PROFILE_DISABLED)
+   dwrd_setting_map_[CPL_HIDDEN_PROFILE_ID] = list_of<rel_t>("DISABLED", CPL_HIDDEN_PROFILE_DISABLED)
                                                          ("ENABLED" , CPL_HIDDEN_PROFILE_ENABLED )
                                                          ;
 
@@ -292,47 +293,47 @@ void nv_api::init_map()
    str_setting_map_[D3DOGL_GPU_MAX_POWER_ID] = list_of(string((const char * )D3DOGL_GPU_MAX_POWER_DEFAULTPOWER));
 
    //"Export Performance Counters"
-   dwrd_setting_map_[EXPORT_PERF_COUNTERS_ID] = map_list_of("OFF", EXPORT_PERF_COUNTERS_OFF)
+   dwrd_setting_map_[EXPORT_PERF_COUNTERS_ID] = list_of<rel_t>("OFF", EXPORT_PERF_COUNTERS_OFF)
                                                            ("ON" , EXPORT_PERF_COUNTERS_ON )
                                                            ;
 
    //"NVIDIA Predefined FXAA Usage"
-   dwrd_setting_map_[FXAA_ALLOW_ID] = map_list_of("DISALLOWED", FXAA_ALLOW_DISALLOWED)
+   dwrd_setting_map_[FXAA_ALLOW_ID] = list_of<rel_t>("DISALLOWED", FXAA_ALLOW_DISALLOWED)
                                                  ("ALLOWED"   , FXAA_ALLOW_ALLOWED   )
                                                  ;
 
    //"Toggle FXAA on or off"
-   dwrd_setting_map_[FXAA_ENABLE_ID] = map_list_of("OFF", FXAA_ENABLE_OFF)
+   dwrd_setting_map_[FXAA_ENABLE_ID] = list_of<rel_t>("OFF", FXAA_ENABLE_OFF)
                                                   ("ON" , FXAA_ENABLE_ON )
                                                   ;
 
    //"Toggle FXAA Indicator on or off"
-   dwrd_setting_map_[FXAA_INDICATOR_ENABLE_ID] = map_list_of("OFF", FXAA_INDICATOR_ENABLE_OFF)
+   dwrd_setting_map_[FXAA_INDICATOR_ENABLE_ID] = list_of<rel_t>("OFF", FXAA_INDICATOR_ENABLE_OFF)
                                                             ("ON" , FXAA_INDICATOR_ENABLE_ON )
                                                             ;
 
    //"Show the SLI on-screen indicator"
-   dwrd_setting_map_[MCSFRSHOWSPLIT_ID] = map_list_of("DISABLED", MCSFRSHOWSPLIT_DISABLED)
+   dwrd_setting_map_[MCSFRSHOWSPLIT_ID] = list_of<rel_t>("DISABLED", MCSFRSHOWSPLIT_DISABLED)
                                                      ("ENABLED" , MCSFRSHOWSPLIT_ENABLED )
                                                      ;
 
    //"Debug bits for optimus"
-   dwrd_setting_map_[OPTIMUS_DEBUG_ID] = map_list_of("RENDER_TRANSPORT" , OPTIMUS_DEBUG_NULL_RENDER_TRANSPORT )
+   dwrd_setting_map_[OPTIMUS_DEBUG_ID] = list_of<rel_t>("RENDER_TRANSPORT" , OPTIMUS_DEBUG_NULL_RENDER_TRANSPORT )
                                                     ("DISPLAY_TRANSPORT", OPTIMUS_DEBUG_NULL_DISPLAY_TRANSPORT)
                                                     ;
 
    //"Maximum AA samples allowed for a given application"
-   dwrd_setting_map_[OPTIMUS_MAXAA_ID] = map_list_of("MIN", OPTIMUS_MAXAA_MIN)
+   dwrd_setting_map_[OPTIMUS_MAXAA_ID] = list_of<rel_t>("MIN", OPTIMUS_MAXAA_MIN)
                                                     ("MAX", OPTIMUS_MAXAA_MAX)
                                                     ;
 
    //"Display the PhysX indicator"
-   dwrd_setting_map_[PHYSXINDICATOR_ID] = map_list_of("DISABLED", PHYSXINDICATOR_DISABLED)
+   dwrd_setting_map_[PHYSXINDICATOR_ID] = list_of<rel_t>("DISABLED", PHYSXINDICATOR_DISABLED)
                                                      ("ENABLED" , PHYSXINDICATOR_ENABLED )
                                                      ;
 
    //"Power management mode"
-   dwrd_setting_map_[PREFERRED_PSTATE_ID] = map_list_of("ADAPTIVE"  , PREFERRED_PSTATE_ADAPTIVE         )
+   dwrd_setting_map_[PREFERRED_PSTATE_ID] = list_of<rel_t>("ADAPTIVE"  , PREFERRED_PSTATE_ADAPTIVE         )
                                                        ("PREFER_MAX", PREFERRED_PSTATE_PREFER_MAX       )
                                                        ("CONTROLLED", PREFERRED_PSTATE_DRIVER_CONTROLLED)
                                                        ("PREFER_MIN", PREFERRED_PSTATE_PREFER_MIN       )
@@ -341,7 +342,7 @@ void nv_api::init_map()
                                                        ;
 
    //"Frame Rate Limiter"
-   dwrd_setting_map_[PS_FRAMERATE_LIMITER_ID] = map_list_of("DISABLED"            , PS_FRAMERATE_LIMITER_DISABLED            )
+   dwrd_setting_map_[PS_FRAMERATE_LIMITER_ID] = list_of<rel_t>("DISABLED"            , PS_FRAMERATE_LIMITER_DISABLED            )
                                                            ("FPS_20"              , PS_FRAMERATE_LIMITER_FPS_20              )
                                                            ("FPS_30"              , PS_FRAMERATE_LIMITER_FPS_30              )
                                                            ("FPS_40"              , PS_FRAMERATE_LIMITER_FPS_40              )
@@ -361,12 +362,12 @@ void nv_api::init_map()
                                                            ;
 
    //"iGPU transcoding"
-   dwrd_setting_map_[SHIM_IGPU_TRANSCODING_ID] = map_list_of("DISABLE", SHIM_IGPU_TRANSCODING_DISABLE)
+   dwrd_setting_map_[SHIM_IGPU_TRANSCODING_ID] = list_of<rel_t>("DISABLE", SHIM_IGPU_TRANSCODING_DISABLE)
                                                             ("ENABLE" , SHIM_IGPU_TRANSCODING_ENABLE )
                                                             ;
 
    //"Optimus flags for enabled applications"
-   dwrd_setting_map_[SHIM_MCCOMPAT_ID] = map_list_of("INTEGRATED"   , SHIM_MCCOMPAT_INTEGRATED   )
+   dwrd_setting_map_[SHIM_MCCOMPAT_ID] = list_of<rel_t>("INTEGRATED"   , SHIM_MCCOMPAT_INTEGRATED   )
                                                     ("ENABLE"       , SHIM_MCCOMPAT_ENABLE       )
                                                     ("USER_EDITABLE", SHIM_MCCOMPAT_USER_EDITABLE)
                                                     ("MASK"         , SHIM_MCCOMPAT_MASK         )
@@ -377,7 +378,7 @@ void nv_api::init_map()
                                                     ;
 
    //"Enable application for Optimus"
-   dwrd_setting_map_[SHIM_RENDERING_MODE_ID] = map_list_of("INTEGRATED"   , SHIM_RENDERING_MODE_INTEGRATED   )
+   dwrd_setting_map_[SHIM_RENDERING_MODE_ID] = list_of<rel_t>("INTEGRATED"   , SHIM_RENDERING_MODE_INTEGRATED   )
                                                           ("ENABLE"       , SHIM_RENDERING_MODE_ENABLE       )
                                                           ("USER_EDITABLE", SHIM_RENDERING_MODE_USER_EDITABLE)
                                                           ("MASK"         , SHIM_RENDERING_MODE_MASK         )
@@ -388,7 +389,7 @@ void nv_api::init_map()
                                                           ;
 
    //"Shim Rendering Mode Options per application for Optimus"
-   dwrd_setting_map_[SHIM_RENDERING_OPTIONS_ID] = map_list_of("DEFAULT_RENDERING_MODE"    , SHIM_RENDERING_OPTIONS_DEFAULT_RENDERING_MODE    )
+   dwrd_setting_map_[SHIM_RENDERING_OPTIONS_ID] = list_of<rel_t>("DEFAULT_RENDERING_MODE"    , SHIM_RENDERING_OPTIONS_DEFAULT_RENDERING_MODE    )
                                                              ("DISABLE_ASYNC_PRESENT"     , SHIM_RENDERING_OPTIONS_DISABLE_ASYNC_PRESENT     )
                                                              ("EHSHELL_DETECT"            , SHIM_RENDERING_OPTIONS_EHSHELL_DETECT            )
                                                              ("FLASHPLAYER_HOST_DETECT"   , SHIM_RENDERING_OPTIONS_FLASHPLAYER_HOST_DETECT   )
@@ -410,7 +411,7 @@ void nv_api::init_map()
                                                              ;
 
    //"Number of GPUs to use on SLI rendering mode"
-   dwrd_setting_map_[SLI_GPU_COUNT_ID] = map_list_of("AUTOSELECT", SLI_GPU_COUNT_AUTOSELECT)
+   dwrd_setting_map_[SLI_GPU_COUNT_ID] = list_of<rel_t>("AUTOSELECT", SLI_GPU_COUNT_AUTOSELECT)
                                                     ("ONE"       , SLI_GPU_COUNT_ONE       )
                                                     ("TWO"       , SLI_GPU_COUNT_TWO       )
                                                     ("THREE"     , SLI_GPU_COUNT_THREE     )
@@ -418,7 +419,7 @@ void nv_api::init_map()
                                                     ;
 
    //"NVIDIA predefined number of GPUs to use on SLI rendering mode"
-   dwrd_setting_map_[SLI_PREDEFINED_GPU_COUNT_ID] = map_list_of("AUTOSELECT", SLI_PREDEFINED_GPU_COUNT_AUTOSELECT)
+   dwrd_setting_map_[SLI_PREDEFINED_GPU_COUNT_ID] = list_of<rel_t>("AUTOSELECT", SLI_PREDEFINED_GPU_COUNT_AUTOSELECT)
                                                                ("ONE"       , SLI_PREDEFINED_GPU_COUNT_ONE       )
                                                                ("TWO"       , SLI_PREDEFINED_GPU_COUNT_TWO       )
                                                                ("THREE"     , SLI_PREDEFINED_GPU_COUNT_THREE     )
@@ -426,7 +427,7 @@ void nv_api::init_map()
                                                                ;
 
    //"NVIDIA predefined number of GPUs to use on SLI rendering mode on DirectX 10"
-   dwrd_setting_map_[SLI_PREDEFINED_GPU_COUNT_DX10_ID] = map_list_of("AUTOSELECT", SLI_PREDEFINED_GPU_COUNT_DX10_AUTOSELECT)
+   dwrd_setting_map_[SLI_PREDEFINED_GPU_COUNT_DX10_ID] = list_of<rel_t>("AUTOSELECT", SLI_PREDEFINED_GPU_COUNT_DX10_AUTOSELECT)
                                                                     ("ONE"       , SLI_PREDEFINED_GPU_COUNT_DX10_ONE       )
                                                                     ("TWO"       , SLI_PREDEFINED_GPU_COUNT_DX10_TWO       )
                                                                     ("THREE"     , SLI_PREDEFINED_GPU_COUNT_DX10_THREE     )
@@ -434,7 +435,7 @@ void nv_api::init_map()
                                                                     ;
 
    //"NVIDIA predefined SLI mode"
-   dwrd_setting_map_[SLI_PREDEFINED_MODE_ID] = map_list_of("AUTOSELECT"                     , SLI_PREDEFINED_MODE_AUTOSELECT                     )
+   dwrd_setting_map_[SLI_PREDEFINED_MODE_ID] = list_of<rel_t>("AUTOSELECT"                     , SLI_PREDEFINED_MODE_AUTOSELECT                     )
                                                           ("FORCE_SINGLE"                   , SLI_PREDEFINED_MODE_FORCE_SINGLE                   )
                                                           ("FORCE_AFR"                      , SLI_PREDEFINED_MODE_FORCE_AFR                      )
                                                           ("FORCE_AFR2"                     , SLI_PREDEFINED_MODE_FORCE_AFR2                     )
@@ -443,7 +444,7 @@ void nv_api::init_map()
                                                           ;
 
    //"NVIDIA predefined SLI mode on DirectX 10"
-   dwrd_setting_map_[SLI_PREDEFINED_MODE_DX10_ID] = map_list_of("AUTOSELECT"                     , SLI_PREDEFINED_MODE_DX10_AUTOSELECT                     )
+   dwrd_setting_map_[SLI_PREDEFINED_MODE_DX10_ID] = list_of<rel_t>("AUTOSELECT"                     , SLI_PREDEFINED_MODE_DX10_AUTOSELECT                     )
                                                                ("FORCE_SINGLE"                   , SLI_PREDEFINED_MODE_DX10_FORCE_SINGLE                   )
                                                                ("FORCE_AFR"                      , SLI_PREDEFINED_MODE_DX10_FORCE_AFR                      )
                                                                ("FORCE_AFR2"                     , SLI_PREDEFINED_MODE_DX10_FORCE_AFR2                     )
@@ -452,7 +453,7 @@ void nv_api::init_map()
                                                                ;
 
    //"SLI rendering mode"
-   dwrd_setting_map_[SLI_RENDERING_MODE_ID] = map_list_of("AUTOSELECT"                     , SLI_RENDERING_MODE_AUTOSELECT                     )
+   dwrd_setting_map_[SLI_RENDERING_MODE_ID] = list_of<rel_t>("AUTOSELECT"                     , SLI_RENDERING_MODE_AUTOSELECT                     )
                                                          ("FORCE_SINGLE"                   , SLI_RENDERING_MODE_FORCE_SINGLE                   )
                                                          ("FORCE_AFR"                      , SLI_RENDERING_MODE_FORCE_AFR                      )
                                                          ("FORCE_AFR2"                     , SLI_RENDERING_MODE_FORCE_AFR2                     )
@@ -461,23 +462,23 @@ void nv_api::init_map()
                                                          ;
 
    //"Flag to control smooth AFR behavior"
-   dwrd_setting_map_[VSYNCSMOOTHAFR_ID] = map_list_of("OFF", VSYNCSMOOTHAFR_OFF)
+   dwrd_setting_map_[VSYNCSMOOTHAFR_ID] = list_of<rel_t>("OFF", VSYNCSMOOTHAFR_OFF)
                                                      ("ON" , VSYNCSMOOTHAFR_ON )
                                                      ;
 
    //"Vsync - Behavior Flags"
-   dwrd_setting_map_[VSYNC_BEHAVIOR_FLAGS_ID] = map_list_of("NONE"                        , VSYNC_BEHAVIOR_FLAGS_NONE                        )
+   dwrd_setting_map_[VSYNC_BEHAVIOR_FLAGS_ID] = list_of<rel_t>("NONE"                        , VSYNC_BEHAVIOR_FLAGS_NONE                        )
                                                            ("DEFAULT"                     , VSYNC_BEHAVIOR_FLAGS_DEFAULT                     )
                                                            ("IGNORE_FLIPINTERVAL_MULTIPLE", VSYNC_BEHAVIOR_FLAGS_IGNORE_FLIPINTERVAL_MULTIPLE)
                                                            ;
 
    //"Stereo - Swap eyes"
-   dwrd_setting_map_[WKS_API_STEREO_EYES_EXCHANGE_ID] = map_list_of("OFF", WKS_API_STEREO_EYES_EXCHANGE_OFF)
+   dwrd_setting_map_[WKS_API_STEREO_EYES_EXCHANGE_ID] = list_of<rel_t>("OFF", WKS_API_STEREO_EYES_EXCHANGE_OFF)
                                                                    ("ON" , WKS_API_STEREO_EYES_EXCHANGE_ON )
                                                                    ;
 
    //"Stereo - Display mode"
-   dwrd_setting_map_[WKS_API_STEREO_MODE_ID] = map_list_of("SHUTTER_GLASSES"             , WKS_API_STEREO_MODE_SHUTTER_GLASSES)
+   dwrd_setting_map_[WKS_API_STEREO_MODE_ID] = list_of<rel_t>("SHUTTER_GLASSES"             , WKS_API_STEREO_MODE_SHUTTER_GLASSES)
                                                           ("VERTICAL_INTERLACED"         , WKS_API_STEREO_MODE_VERTICAL_INTERLACED)
                                                           ("TWINVIEW"                    , WKS_API_STEREO_MODE_TWINVIEW)
                                                           ("NV17_SHUTTER_GLASSES_AUTO"   , WKS_API_STEREO_MODE_NV17_SHUTTER_GLASSES_AUTO)
@@ -504,94 +505,94 @@ void nv_api::init_map()
                                                           ;
 
    //"Stereo - Win8 support"
-   dwrd_setting_map_[WKS_FEATURE_SUPPORT_CONTROL_ID] = map_list_of("OFF"                          , WKS_FEATURE_SUPPORT_CONTROL_OFF                          )
+   dwrd_setting_map_[WKS_FEATURE_SUPPORT_CONTROL_ID] = list_of<rel_t>("OFF"                          , WKS_FEATURE_SUPPORT_CONTROL_OFF                          )
                                                                   ("SRS_1714_WIN8_STEREO"         , WKS_FEATURE_SUPPORT_CONTROL_SRS_1714_WIN8_STEREO         )
                                                                   ("WIN8_STEREO_EXPORT_IF_ENABLED", WKS_FEATURE_SUPPORT_CONTROL_WIN8_STEREO_EXPORT_IF_ENABLED)
                                                                   ;
 
    //"Stereo - Dongle Support"
-   dwrd_setting_map_[WKS_STEREO_DONGLE_SUPPORT_ID] = map_list_of("OFF", WKS_STEREO_DONGLE_SUPPORT_OFF)
+   dwrd_setting_map_[WKS_STEREO_DONGLE_SUPPORT_ID] = list_of<rel_t>("OFF", WKS_STEREO_DONGLE_SUPPORT_OFF)
                                                                 ("DAC", WKS_STEREO_DONGLE_SUPPORT_DAC)
                                                                 ("DLP", WKS_STEREO_DONGLE_SUPPORT_DLP)
                                                                 ;
 
    //"Stereo - Enable"
-   dwrd_setting_map_[WKS_STEREO_SUPPORT_ID] = map_list_of("OFF", WKS_STEREO_SUPPORT_OFF)
+   dwrd_setting_map_[WKS_STEREO_SUPPORT_ID] = list_of<rel_t>("OFF", WKS_STEREO_SUPPORT_OFF)
                                                          ("ON" , WKS_STEREO_SUPPORT_ON )
                                                          ;
 
    //"Ambient Occlusion"
-   dwrd_setting_map_[AO_MODE_ID] = map_list_of("OFF"   , AO_MODE_OFF   )
+   dwrd_setting_map_[AO_MODE_ID] = list_of<rel_t>("OFF"   , AO_MODE_OFF   )
                                               ("LOW"   , AO_MODE_LOW   )
                                               ("MEDIUM", AO_MODE_MEDIUM)
                                               ("HIGH"  , AO_MODE_HIGH  )
                                               ;
 
    //"NVIDIA Predefined Ambient Occlusion Usage"
-   dwrd_setting_map_[AO_MODE_ACTIVE_ID] = map_list_of("DISABLED", AO_MODE_ACTIVE_DISABLED)
+   dwrd_setting_map_[AO_MODE_ACTIVE_ID] = list_of<rel_t>("DISABLED", AO_MODE_ACTIVE_DISABLED)
                                                      ("ENABLED" , AO_MODE_ACTIVE_ENABLED )
                                                      ;
 
    //"Texture filtering - Driver Controlled LOD Bias"
-   dwrd_setting_map_[AUTO_LODBIASADJUST_ID] = map_list_of("OFF", AUTO_LODBIASADJUST_OFF)
+   dwrd_setting_map_[AUTO_LODBIASADJUST_ID] = list_of<rel_t>("OFF", AUTO_LODBIASADJUST_OFF)
                                                          ("ON" , AUTO_LODBIASADJUST_ON )
                                                          ;
 
    //"Texture filtering - LOD Bias"
-   dwrd_setting_map_[LODBIASADJUST_ID] = map_list_of("MIN", LODBIASADJUST_MIN)
+   dwrd_setting_map_[LODBIASADJUST_ID] = list_of<rel_t>("MIN", LODBIASADJUST_MIN)
                                                     ("MAX", LODBIASADJUST_MAX)
                                                     ;
 
    //"Maximum pre-rendered frames"
-   dwrd_setting_map_[PRERENDERLIMIT_ID] = map_list_of("MIN"           , PRERENDERLIMIT_MIN           )
+   dwrd_setting_map_[PRERENDERLIMIT_ID] = list_of<rel_t>("MIN"           , PRERENDERLIMIT_MIN           )
                                                      ("MAX"           , PRERENDERLIMIT_MAX           )
                                                      ("APP_CONTROLLED", PRERENDERLIMIT_APP_CONTROLLED)
                                                      ;
 
    //"Dynamic tiling"
-   dwrd_setting_map_[PS_DYNAMIC_TILING_ID] = map_list_of("OFF", PS_DYNAMIC_TILING_OFF)
+   dwrd_setting_map_[PS_DYNAMIC_TILING_ID] = list_of<rel_t>("OFF", PS_DYNAMIC_TILING_OFF)
                                                         ("ON" , PS_DYNAMIC_TILING_ON )
                                                         ;
 
    //"Texture filtering - Anisotropic sample optimization"
-   dwrd_setting_map_[PS_TEXFILTER_ANISO_OPTS2_ID] = map_list_of("OFF", PS_TEXFILTER_ANISO_OPTS2_OFF)
+   dwrd_setting_map_[PS_TEXFILTER_ANISO_OPTS2_ID] = list_of<rel_t>("OFF", PS_TEXFILTER_ANISO_OPTS2_OFF)
                                                                ("ON" , PS_TEXFILTER_ANISO_OPTS2_ON )
                                                                ;
 
    //"Texture filtering - Anisotropic filter optimization"
-   dwrd_setting_map_[PS_TEXFILTER_BILINEAR_IN_ANISO_ID] = map_list_of("OFF", PS_TEXFILTER_BILINEAR_IN_ANISO_OFF)
+   dwrd_setting_map_[PS_TEXFILTER_BILINEAR_IN_ANISO_ID] = list_of<rel_t>("OFF", PS_TEXFILTER_BILINEAR_IN_ANISO_OFF)
                                                                      ("ON" , PS_TEXFILTER_BILINEAR_IN_ANISO_ON )
                                                                      ;
 
    //"Texture filtering - Trilinear optimization"
-   dwrd_setting_map_[PS_TEXFILTER_DISABLE_TRILIN_SLOPE_ID] = map_list_of("OFF", PS_TEXFILTER_DISABLE_TRILIN_SLOPE_OFF)
+   dwrd_setting_map_[PS_TEXFILTER_DISABLE_TRILIN_SLOPE_ID] = list_of<rel_t>("OFF", PS_TEXFILTER_DISABLE_TRILIN_SLOPE_OFF)
                                                                         ("ON" , PS_TEXFILTER_DISABLE_TRILIN_SLOPE_ON )
                                                                         ;
 
    //"Texture filtering - Negative LOD bias"
-   dwrd_setting_map_[PS_TEXFILTER_NO_NEG_LODBIAS_ID] = map_list_of("OFF", PS_TEXFILTER_NO_NEG_LODBIAS_OFF)
+   dwrd_setting_map_[PS_TEXFILTER_NO_NEG_LODBIAS_ID] = list_of<rel_t>("OFF", PS_TEXFILTER_NO_NEG_LODBIAS_OFF)
                                                                   ("ON" , PS_TEXFILTER_NO_NEG_LODBIAS_ON )
                                                                   ;
 
    //"Texture filtering - Quality"
-   dwrd_setting_map_[QUALITY_ENHANCEMENTS_ID] = map_list_of("HIGHQUALITY"    , QUALITY_ENHANCEMENTS_HIGHQUALITY    )
+   dwrd_setting_map_[QUALITY_ENHANCEMENTS_ID] = list_of<rel_t>("HIGHQUALITY"    , QUALITY_ENHANCEMENTS_HIGHQUALITY    )
                                                            ("QUALITY"        , QUALITY_ENHANCEMENTS_QUALITY        )
                                                            ("PERFORMANCE"    , QUALITY_ENHANCEMENTS_PERFORMANCE    )
                                                            ("HIGHPERFORMANCE", QUALITY_ENHANCEMENTS_HIGHPERFORMANCE)
                                                            ;
 
    //"Preferred refresh rate"
-   dwrd_setting_map_[REFRESH_RATE_OVERRIDE_ID] = map_list_of("APPLICATION_CONTROLLED", REFRESH_RATE_OVERRIDE_APPLICATION_CONTROLLED)
+   dwrd_setting_map_[REFRESH_RATE_OVERRIDE_ID] = list_of<rel_t>("APPLICATION_CONTROLLED", REFRESH_RATE_OVERRIDE_APPLICATION_CONTROLLED)
                                                             ("HIGHEST_AVAILABLE"     , REFRESH_RATE_OVERRIDE_HIGHEST_AVAILABLE     )
                                                             ;
 
    //"PowerThrottle"
-   dwrd_setting_map_[SET_POWER_THROTTLE_FOR_PCIe_COMPLIANCE_ID] = map_list_of("OFF", SET_POWER_THROTTLE_FOR_PCIe_COMPLIANCE_OFF)
+   dwrd_setting_map_[SET_POWER_THROTTLE_FOR_PCIe_COMPLIANCE_ID] = list_of<rel_t>("OFF", SET_POWER_THROTTLE_FOR_PCIe_COMPLIANCE_OFF)
                                                                              ("ON" , SET_POWER_THROTTLE_FOR_PCIe_COMPLIANCE_ON )
                                                                              ;
 
    //"VAB Default Data"
-   dwrd_setting_map_[SET_VAB_DATA_ID] = map_list_of("ZERO"            , SET_VAB_DATA_ZERO            )
+   dwrd_setting_map_[SET_VAB_DATA_ID] = list_of<rel_t>("ZERO"            , SET_VAB_DATA_ZERO            )
                                                    ("UINT_ONE"        , SET_VAB_DATA_UINT_ONE        )
                                                    ("FLOAT_ONE"       , SET_VAB_DATA_FLOAT_ONE       )
                                                    ("FLOAT_POS_INF"   , SET_VAB_DATA_FLOAT_POS_INF   )
@@ -600,7 +601,7 @@ void nv_api::init_map()
                                                    ;
 
    //"Vertical Sync"
-   dwrd_setting_map_[VSYNCMODE_ID] = map_list_of("PASSIVE"      , VSYNCMODE_PASSIVE      )
+   dwrd_setting_map_[VSYNCMODE_ID] = list_of<rel_t>("PASSIVE"      , VSYNCMODE_PASSIVE      )
                                                 ("FORCEOFF"     , VSYNCMODE_FORCEOFF     )
                                                 ("FORCEON"      , VSYNCMODE_FORCEON      )
                                                 ("FLIPINTERVAL2", VSYNCMODE_FLIPINTERVAL2)
@@ -609,7 +610,7 @@ void nv_api::init_map()
                                                 ;
 
    //"Vertical Sync Tear Control"
-   dwrd_setting_map_[VSYNCTEARCONTROL_ID] = map_list_of("DISABLE", VSYNCTEARCONTROL_DISABLE)
+   dwrd_setting_map_[VSYNCTEARCONTROL_ID] = list_of<rel_t>("DISABLE", VSYNCTEARCONTROL_DISABLE)
                                                        ("ENABLE", VSYNCTEARCONTROL_ENABLE)
                                                        ;
 }
