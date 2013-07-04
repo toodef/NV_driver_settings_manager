@@ -1,8 +1,8 @@
 #include "main.h"
 
 nv_api::nv_api() :
-     session_(0)
-   , profile_(0)
+     session_  (0)
+   , profile_  (0)
 {
    if (NvAPI_Initialize() != NVAPI_OK)
       cout << "NVIDIA Api not initialized!" << endl;
@@ -14,6 +14,8 @@ nv_api::nv_api() :
       cout << "Can't load system settings!" << endl;
 
    NvAPI_DRS_GetCurrentGlobalProfile(session_, &profile_);
+
+   NvAPI_DRS_GetProfileInfo(session_, profile_, &prof_info_);
 
    init_map();
 }
@@ -76,27 +78,23 @@ bool nv_api::change_settings( Node const & settings )
 
 bool nv_api::display_prof_contents()
 {
-   NVDRS_PROFILE prof_info;
+   prof_info_.version = NVDRS_PROFILE_VER;
 
-   prof_info.version = NVDRS_PROFILE_VER;
+   const char * ch = (const char *)(&(prof_info_.profileName[0]));
 
-   NvAPI_DRS_GetProfileInfo(session_, profile_, &prof_info);
-
-   const char * ch = (const char *)(&(prof_info.profileName[0]));
-
-   wprintf(L"-----Profile Name: %s\n", prof_info.profileName);
-   cout << " Number of Applications associated with the Profile: " << prof_info.numOfApps << endl;
-   cout << " Number of Settings associated with the Profile: " << prof_info.numOfSettings << endl;
-   cout << " Is Predefined: " << prof_info.isPredefined << endl;
+   wprintf(L"-----Profile Name: %s\n", prof_info_.profileName);
+   cout << " Number of Applications associated with the Profile: " << prof_info_.numOfApps << endl;
+   cout << " Number of Settings associated with the Profile: " << prof_info_.numOfSettings << endl;
+   cout << " Is Predefined: " << prof_info_.isPredefined << endl;
 
    NvAPI_Status status;
 
    string tmp_str;
 
-   if (prof_info.numOfApps > 0)
+   if (prof_info_.numOfApps > 0)
    {
-      NVDRS_APPLICATION * app_array = new NVDRS_APPLICATION[prof_info.numOfApps];
-      NvU32 numAppsRead = prof_info.numOfApps, i;
+      NVDRS_APPLICATION * app_array = new NVDRS_APPLICATION[prof_info_.numOfApps];
+      NvU32 numAppsRead = prof_info_.numOfApps, i;
 
       app_array[0].version = NVDRS_APPLICATION_VER;
       status = NvAPI_DRS_EnumApplications(session_, profile_, 0, &numAppsRead, app_array);
@@ -121,10 +119,10 @@ bool nv_api::display_prof_contents()
       delete[] app_array;
    }
 
-   if (prof_info.numOfSettings > 0)
+   if (prof_info_.numOfSettings > 0)
    {
-      NVDRS_SETTING * set_array = new NVDRS_SETTING[prof_info.numOfSettings];
-      NvU32 numSetRead = prof_info.numOfSettings, i;
+      NVDRS_SETTING * set_array = new NVDRS_SETTING[prof_info_.numOfSettings];
+      NvU32 numSetRead = prof_info_.numOfSettings, i;
 
       set_array[0].version = NVDRS_SETTING_VER;
       status = NvAPI_DRS_EnumSettings(session_, profile_, 0, &numSetRead, set_array);
@@ -179,7 +177,26 @@ bool nv_api::display_prof_contents()
       }
    }
 
-   wprintf(L"-----End of %s profile_.\n\n", prof_info.profileName);
+   wprintf(L"-----End of %s profile_.\n\n", prof_info_.profileName);
 
    return true;
+}
+
+void nv_api::load_settings_from_file( const string & file_name )
+{
+   ifstream f_in(file_name.c_str());
+   Parser pars(f_in);
+
+   Node doc;
+
+   pars.GetNextDocument(doc);
+
+   change_settings(doc);
+}
+
+void nv_api::save_settings_to_file( const string & file_name )
+{
+   ofstream f_out(file_name.c_str());
+
+   settings_t stgs(prof_info_.numOfSettings);
 }
