@@ -23,8 +23,8 @@ unsigned int nv_api::get_value_id_from_value_name( NvU32 setting_id, string cons
 
       string setting_str_name = NvUS_to_string(setting_name);
 
-      cout << "This value name(" << value_name << ")" << "not exist in this setting(name: " << setting_str_name
-           << ", id: " << setting_id << ")" << endl;
+      cout << "This value name(" << value_name << ")" << " not exist in this setting('" << setting_str_name
+           << "', " << setting_id << ")" << endl;
       cout << "Name may be one of: ";
 
       print_optional_values(it, cout);
@@ -57,8 +57,8 @@ string nv_api::get_value_name_from_value_id( NvU32 setting_id, unsigned int valu
 
       string setting_str_name = NvUS_to_string(setting_name);
 
-      cout << "This value id(" << value_id << ") "<< "not exist in this setting(name: " << setting_str_name
-           << ", id: " << setting_id << ")" << endl;
+      cout << "This value id(" << value_id << ") "<< " not exist in this setting('" << setting_str_name
+           << "', " << setting_id << ")" << endl;
       cout << "Id may be one of: ";
 
       print_optional_id(it, cout);
@@ -171,6 +171,7 @@ void nv_api::init_map()
                                                             ("DISABLE"         , OGL_THREAD_CONTROL_DISABLE         )
                                                             ("DUMP_STATS"      , OGL_THREAD_CONTROL_DUMP_STATS      )
                                                             ("IGNORE_GET_ERROR", OGL_THREAD_CONTROL_IGNORE_GET_ERROR)
+                                                            ("AUTO"            , 0                                  )
                                                             ;
 
    //"Triple buffering"
@@ -369,11 +370,13 @@ void nv_api::init_map()
    //"Show the SLI on-screen indicator"
    dwrd_setting_map_[MCSFRSHOWSPLIT_ID] = list_of<rel_t>("DISABLED", MCSFRSHOWSPLIT_DISABLED)
                                                         ("ENABLED" , MCSFRSHOWSPLIT_ENABLED )
+                                                        ("AUTO"    , 0                      )
                                                         ;
 
    //"Debug bits for optimus"
    dwrd_setting_map_[OPTIMUS_DEBUG_ID] = list_of<rel_t>("RENDER_TRANSPORT" , OPTIMUS_DEBUG_NULL_RENDER_TRANSPORT )
                                                        ("DISPLAY_TRANSPORT", OPTIMUS_DEBUG_NULL_DISPLAY_TRANSPORT)
+                                                       ("AUTO"             , 0                                   )
                                                        ;
 
    //"Maximum AA samples allowed for a given application"
@@ -384,6 +387,7 @@ void nv_api::init_map()
    //"Display the PhysX indicator"
    dwrd_setting_map_[PHYSXINDICATOR_ID] = list_of<rel_t>("DISABLED", PHYSXINDICATOR_DISABLED)
                                                         ("ENABLED" , PHYSXINDICATOR_ENABLED )
+                                                        ("AUTO"    , 0                      )
                                                         ;
 
    //"Power management mode"
@@ -591,11 +595,6 @@ void nv_api::init_map()
    dwrd_setting_map_[AUTO_LODBIASADJUST_ID] = list_of<rel_t>("OFF", AUTO_LODBIASADJUST_OFF)
                                                             ("ON" , AUTO_LODBIASADJUST_ON )
                                                             ;
-
-   ////"Texture filtering - LOD Bias"
-   //dwrd_setting_map_[LODBIASADJUST_ID] = list_of<rel_t>("MIN", LODBIASADJUST_MIN)
-   //                                                    ("MAX", LODBIASADJUST_MAX)
-   //                                                    ;
 
    //"Texture filtering - LOD Bias"
    dwrd_setting_map_[LODBIASADJUST_ID] = list_of<rel_t>("OFF", AUTO_LODBIASADJUST_OFF)
