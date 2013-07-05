@@ -141,6 +141,10 @@ bool nv_api::display_prof_contents()
 void nv_api::load_settings_from_file( const string & file_name )
 {
    ifstream f_in(file_name.c_str());
+
+   if (!f_in)
+      cerr << "File '"<< file_name << "' doesn't exist!" << endl;
+
    Parser pars(f_in);
 
    Node doc;
@@ -179,18 +183,21 @@ void nv_api::save_settings_to_file( const string & file_name )
    {
       string str = NvUS_to_string(stgs[i].settingName);
 
-      f_out << "-" << endl;
-      f_out << "  name: " << str << endl;
+      if (str != "")
+      {
+         f_out << "-" << endl;
+         f_out << "  name: " << str << endl;
 
-      str  = get_value_name_from_value_id(stgs[i].settingId, (unsigned int)stgs[i].u32CurrentValue);
+         str  = get_value_name_from_value_id(stgs[i].settingId, (unsigned int)stgs[i].u32CurrentValue);
 
-      f_out << "  value: " << str << endl;
+         f_out << "  value: " << str << endl;
 
-      f_out << "  #val_options: ";
+         f_out << "  #val_options: ";
 
-      print_optional_values(it, f_out);
+         print_optional_values(it, f_out);
 
-      f_out << endl;
+         f_out << endl;
+      }
 
       it++;
    }
