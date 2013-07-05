@@ -14,6 +14,7 @@
 
 #include <boost/format.hpp>
 #include <boost/bimap.hpp>
+#include <boost/program_options.hpp>
 
 #include <yaml.h>
 #pragma comment(lib, "yaml.lib")
