@@ -25,7 +25,6 @@ using namespace YAML;
 
 #include "nv_api.h"
 
-// temp
 __forceinline NvAPI_UnicodeString & string_to_NvUS( const string & str )
 {
    size_t len = str.length();

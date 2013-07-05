@@ -15,13 +15,13 @@ public:
    nv_api ();
    ~nv_api();
 
-   bool display_prof_contents();
+   void display_prof_contents();
 
-   bool change_setting ( Node const & setting );
-   bool change_settings( Node const & settings );
+   void change_setting ( Node const & setting  );
+   void change_settings( Node const & settings );
 
-   void load_settings_from_file( const string & file_name ); // from file do driver
-   void save_settings_to_file  ( const string & file_name ); // from driver to file
+   void load_settings_from_file( string const & file_name );
+   void save_settings_to_file  ( string const & file_name );
 
 private:
    void init_map();
@@ -29,8 +29,8 @@ private:
    typedef map<NvU32, bimap<string, unsigned int>> dword_map_t ;
    typedef map<NvU32, list<string>>                string_map_t;
 
-   void print_optional_values( const dword_map_t::iterator & it, std::ostream & o_stream );
-   void print_optional_id    ( const dword_map_t::iterator & it, std::ostream & o_stream );
+   void print_optional_values( dword_map_t::iterator const & it, std::ostream & o_stream );
+   void print_optional_id    ( dword_map_t::iterator const & it, std::ostream & o_stream );
 
    unsigned int nv_api::get_value_id_from_value_name( NvU32 setting_id, string const & value_name );
    string nv_api::get_value_name_from_value_id      ( NvU32 setting_id, unsigned int value_id )    ;

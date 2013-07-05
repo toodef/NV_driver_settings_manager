@@ -1,6 +1,5 @@
 #include "main.h"
 
-
 unsigned int nv_api::get_value_id_from_value_name( NvU32 setting_id, string const & value_name )
 {
    if (value_name == "~" || setting_id == 0)
@@ -23,9 +22,9 @@ unsigned int nv_api::get_value_id_from_value_name( NvU32 setting_id, string cons
 
       string setting_str_name = NvUS_to_string(setting_name);
 
-      cout << "This value name(" << value_name << ")" << " not exist in this setting('" << setting_str_name
+      cout << "this value name(" << value_name << ")" << " not exist in this setting('" << setting_str_name
            << "', " << setting_id << ")" << endl;
-      cout << "Name may be one of: ";
+      cout << "name may be one of: ";
 
       print_optional_values(it, cout);
 
@@ -57,9 +56,9 @@ string nv_api::get_value_name_from_value_id( NvU32 setting_id, unsigned int valu
 
       string setting_str_name = NvUS_to_string(setting_name);
 
-      cout << "This value id(" << value_id << ") "<< " not exist in this setting('" << setting_str_name
+      cout << "this value id(" << value_id << ") "<< " not exist in this setting('" << setting_str_name
            << "', " << setting_id << ")" << endl;
-      cout << "Id may be one of: ";
+      cout << "id may be one of: ";
 
       print_optional_id(it, cout);
 

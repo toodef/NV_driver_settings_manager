@@ -10,55 +10,47 @@ int main( int arg_c, char ** arg_v )
 
    desc.add_options()
                    ("help,h", "")
-                   ("load,l", "Load settings from file to driver")
-                   ("save,s", "Save settings from driver to file")
-                   ("file,f", po::value<string>(&file_name), "Select i/o file")
+                   ("load,l", "load settings from file to driver")
+                   ("save,s", "save settings from driver to file")
+                   ("file,f", po::value<string>(&file_name), "select i/o file")
                    ;
+
+   po::variables_map vm;
 
    try
    {
-      po::variables_map vm;
-
       po::store(po::parse_command_line(arg_c, arg_v, desc), vm);
 
       po::notify(vm);
-
-      if (vm.count("help"))
-      {
-          cout << desc << endl;
-          return 1;
-      }
-
-      bool file_is_spec = false;
-
-      if (vm.count("file"))
-         file_is_spec = true;
-
-      nv_api nv;
-
-      if (vm.count("load"))
-      {
-         if (file_is_spec)
-            nv.load_settings_from_file(file_name);
-         else
-            cerr << "Need to specify file name! Use [-f <file_name>] or [-file <file_name>]" << endl;
-         return 1;
-      }
-
-      if (vm.count("save"))
-      {
-         if (file_is_spec)
-            nv.save_settings_to_file(file_name);
-         else
-            cerr << "Need to specify file name! Use [-f <file_name>] or [-file <file_name>]" << endl;
-         return 1;
-      }
    }
-   catch(...)
+   catch(po::invalid_command_line_syntax l_syntax)
    {
-      cerr << "Enter file name!" << endl;
-      return 1;
+      cerr << l_syntax.what() << endl;
    }
+
+   if (!vm["help"].empty())
+   {
+       cout << desc << endl;
+       return 1;
+   }
+
+   nv_api nv;
+
+   try
+   {
+      if (!vm["load"].empty())
+         nv.load_settings_from_file(file_name);
+
+      if (!vm["save"].empty())
+         nv.save_settings_to_file(file_name);
+   }
+   catch (ifstream::failure ex)
+   {
+      cerr << "error open or read file: '" << file_name << "'!" << endl;
+   }
+
+   if (vm.empty())
+      cout << desc << endl;
 
    return 0;
 }

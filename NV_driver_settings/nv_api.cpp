@@ -27,7 +27,7 @@ nv_api::~nv_api()
    NvAPI_DRS_DestroySession(session_);
 }
 
-bool nv_api::change_setting( const Node & setting )
+void nv_api::change_setting( Node const & setting )
 {
    string setting_name_str;
 
@@ -41,7 +41,7 @@ bool nv_api::change_setting( const Node & setting )
 
    setting["value"] >> value_str;
 
-   size_t setting_val = get_value_id_from_value_name(setting_id, value_str);
+   size_t const setting_val = get_value_id_from_value_name(setting_id, value_str);
 
    NVDRS_SETTING tmp_setting = {0};
 
@@ -51,21 +51,17 @@ bool nv_api::change_setting( const Node & setting )
    tmp_setting.settingType     = NVDRS_DWORD_TYPE ;
 
    NvAPI_DRS_SetSetting(session_, profile_, &tmp_setting);
-
-   return 1;
 }
 
-bool nv_api::change_settings( Node const & settings )
+void nv_api::change_settings( Node const & settings )
 {
    for (YAML::Iterator it = settings.begin(); it != settings.end(); ++it)
       change_setting(*it);
 
    NvAPI_DRS_SaveSettings(session_);
-
-   return 0;
 }
 
-bool nv_api::display_prof_contents()
+void nv_api::display_prof_contents()
 {
    wprintf(L"-----Profile Name: %s\n", prof_info_.profileName);
    cout << " Number of Settings associated with the Profile: " << prof_info_.numOfSettings << endl;
@@ -89,7 +85,7 @@ bool nv_api::display_prof_contents()
          NvAPI_GetErrorMessage(status, szDesc);
          cout << "NVAPI error: " << szDesc;
 
-         return false;
+         return;
       }
 
       for (i = 0; i < numSetRead; i++)
@@ -134,16 +130,22 @@ bool nv_api::display_prof_contents()
    }
 
    wprintf(L"-----End of %s profile_.\n\n", prof_info_.profileName);
-
-   return true;
 }
 
-void nv_api::load_settings_from_file( const string & file_name )
+void nv_api::load_settings_from_file( string const & file_name )
 {
-   ifstream f_in(file_name.c_str());
+   ifstream f_in;
 
-   if (!f_in)
-      cerr << "File '"<< file_name << "' doesn't exist!" << endl;
+   f_in.exceptions(ifstream::failbit | ifstream::badbit);
+
+   try
+   {
+      f_in.open(file_name.c_str());
+   }
+   catch (ifstream::failure ex)
+   {
+      throw ex;
+   }
 
    Parser pars(f_in);
 
@@ -156,9 +158,20 @@ void nv_api::load_settings_from_file( const string & file_name )
    f_in.close();
 }
 
-void nv_api::save_settings_to_file( const string & file_name )
+void nv_api::save_settings_to_file( string const & file_name )
 {
-   ofstream f_out(file_name.c_str());
+   ofstream f_out;
+
+   f_out.exceptions(ifstream::failbit | ifstream::badbit);
+
+   try
+   {
+      f_out.open(file_name.c_str());
+   }
+   catch (ifstream::failure ex)
+   {
+      throw ex;
+   }
 
    settings_t stgs(prof_info_.numOfSettings);
 
@@ -170,73 +183,90 @@ void nv_api::save_settings_to_file( const string & file_name )
 
    f_out << "# --NVIDIA Graphics Driver setting file." << endl << endl;
 
-   f_out << "# Settings list(" << prof_info_.numOfSettings << " ithems):" << endl;
+   f_out << "# Settings list:" << endl;
 
-   for (unsigned int i = 0; i < prof_info_.numOfSettings; ++i)
-      f_out << "# --" << NvUS_to_string(stgs[i].settingName) << endl;
-
-   f_out << endl;
-
-   dword_map_t::iterator it = dwrd_setting_map_.begin();
+   string str;
 
    for (unsigned int i = 0; i < prof_info_.numOfSettings; ++i)
    {
-      string str = NvUS_to_string(stgs[i].settingName);
+      str = NvUS_to_string(stgs[i].settingName);
+
+      if (str != "")
+         f_out << "# " << i << ") " << str << endl;
+   }
+
+   f_out << endl;
+
+   for (unsigned int i = 0; i < prof_info_.numOfSettings; ++i)
+   {
+      str = NvUS_to_string(stgs[i].settingName);
 
       if (str != "")
       {
          f_out << "-" << endl;
          f_out << "  name: " << str << endl;
 
-         str  = get_value_name_from_value_id(stgs[i].settingId, (unsigned int)stgs[i].u32CurrentValue);
+         string d_str  = get_value_name_from_value_id(stgs[i].settingId, (unsigned int)stgs[i].u32CurrentValue);
 
-         f_out << "  value: " << str << endl;
+         f_out << "  value: " << d_str << endl;
 
          f_out << "  #val_options: ";
 
-         print_optional_values(it, f_out);
+         NvU32 id;
+
+         NvAPI_DRS_GetSettingIdFromName(string_to_NvUS(str), &id);
+
+         print_optional_values(dwrd_setting_map_.find((unsigned int)id), f_out);
 
          f_out << endl;
       }
-
-      it++;
    }
 
    f_out.close();
 }
 
-void nv_api::print_optional_values( const dword_map_t::iterator & it, std::ostream & o_stream )
+void nv_api::print_optional_values( dword_map_t::iterator const & it, std::ostream & o_stream )
 {
-   bimap<string, unsigned int>::iterator d_it;
+   bimap<string, unsigned int>::iterator   d_it
+                                         , prev_it;
 
    if (it != dwrd_setting_map_.end())
    {
       o_stream << "[";
 
+      prev_it = it->second.end();
+
+      --prev_it;
+
       for (d_it = it->second.begin(); d_it != it->second.end(); ++d_it)
       {
-         if ((++d_it) != it->second.end())
-            o_stream << (--d_it)->left << ", ";
+         if (d_it != prev_it)
+            o_stream << d_it->left << ", ";
          else
-            o_stream << (--d_it)->left << "]" << endl;
+            o_stream << d_it->left << "]" << endl;
       }
    }
 }
 
-void nv_api::print_optional_id( const dword_map_t::iterator & it, std::ostream & o_stream )
+void nv_api::print_optional_id( dword_map_t::iterator const & it, std::ostream & o_stream )
 {
-   bimap<string, unsigned int>::iterator d_it;
+   bimap<string, unsigned int>::iterator   d_it
+                                         , prev_it;
 
    if (it != dwrd_setting_map_.end())
    {
       o_stream << "[";
 
+      prev_it = it->second.end();
+
+      --prev_it;
+
       for (d_it = it->second.begin(); d_it != it->second.end(); ++d_it)
       {
-         if ((++d_it) != it->second.end())
-            o_stream << (--d_it)->right << ", ";
+         if (d_it != prev_it)
+            o_stream << d_it->right << ", ";
          else
-            o_stream << (--d_it)->right << "]" << endl;
+            o_stream << d_it->right << "]" << endl;
       }
    }
 }
