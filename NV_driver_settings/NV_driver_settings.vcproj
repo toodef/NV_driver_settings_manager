@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\work\Ext\include"
+				AdditionalIncludeDirectories="C:\work\Ext\include;C:\work\src\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -62,8 +62,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				IgnoreImportLibrary="false"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="C:\work\Ext\lib\boost"
+				AdditionalLibraryDirectories="C:\work\Ext\lib\boost;C:\work\Ext\lib\nvapi;C:\work\Ext\lib\yaml_cpp"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -95,7 +96,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -117,8 +118,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="C:\work\Ext\include;C:\work\src\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
+				StructMemberAlignment="4"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -136,6 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="C:\work\Ext\lib\boost;C:\work\Ext\lib\nvapi;C:\work\Ext\lib\yaml_cpp"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"

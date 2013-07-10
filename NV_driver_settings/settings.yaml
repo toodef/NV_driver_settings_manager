@@ -79,7 +79,7 @@
 
 -
   name: Antialiasing - Line gamma
-  value: MIN
+  value: ENABLED
   #val_options: [DISABLED, ENABLED, MIN, MAX]
 
 -
@@ -379,7 +379,7 @@
 -
   name: Texture filtering - LOD Bias
   value:
-  #val_options: [MIN, MAX]
+  #val_options: [OFF, ON] //[MIN, MAX] - checked
 
 -
   name: Maximum pre-rendered frames
